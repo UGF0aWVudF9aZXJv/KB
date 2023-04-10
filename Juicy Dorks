@@ -1,0 +1,572 @@
+intext:"db_database" ext:env intext:"db_password"	
+Index of "/yahoo_site_admin/credentials"	
+allintext:password filetype:log	
+inurl:logs intext:GET https:// ext:txt intext:password intext:username	
+intitle:"index of" "/master.passwd"	
+MYSQL_ROOT_PASSWORD: ext:env OR ext:yml -git	
+filetype:env "DB_PASSWORD"	
+index of ".env"	
+intext:"Index of /password"	
+config.php.bak intitle:"index of"	
+intitle:"index of" "config.neon" OR "config.local.neon"	
+intitle:"index of" "passwords.xlsx"	
+inurl:*helpdesk* intext:"your default password is"	
+/etc/shadow root:$ ext:cfg OR ext:log OR ext:txt OR ext:sql -git	
+MasterUserPassword ext:cfg OR ext:log OR ext:txt -git	
+intitle:"index of " "*.passwords.txt"	
+admin password irreversible-cipher ext:txt OR ext:log OR ext:cfg	
+super password level 3 cipher ext:txt OR ext:log	
+intitle:"index of" "db.ini"	
+intitle:"index of" application.ini	
+intitle:"index of" "database.ini" OR "database.ini.old"	
+intitle:"index of" "db.connection.js"	
+create account admin ext:cfg	
+configure account user encrypted ext:cfg	
+d-i passwd/root-password-crypted password ext:cfg	
+password console-password ext:cfg -git	
+intitle:"Index of" dbconnect.inc	
+intext:authentication set encrypted-password ext:cfg	
+enable password ext:cfg -git -cisco.com	
+intitle:"index of" "passwords.yml"	
+intitle:"index of" "credentials.yml"	
+intext:"WPENGINE_SESSION_DB_USERNAME" || "WPENGINE_SESSION_DB_PASSWORD"	
+intext:"username=" AND "password=" ext:log	
+intitle:index.of "creds.txt"	
+intitle:"index of" share.passwd OR cloud.passwd OR ftp.passwd -public	
+intitle:"index of" "db.conf"	
+intitle:"Index of" password.txt	
+contrasena filetype:sql -github.com	
+intext:"@gmail.com" intext:"password" inurl:/files/ ext:txt	
+intitle:"index of" "ftp.passwd"	
+intitle:"index of" "htpasswd.txt"	
+pass "usuario" filetype:sql	
+intext:"aspx" filetype:txt login & password	
+inurl:users.json + "username"	
+intext:"wordpress" filetype:xls login & password	
+s3 site:amazonaws.com filetype:xls password	
+inurl:login.txt filetype:txt	
+intitle:settings.py intext:EMAIL_USE_TLS -git -stackoverflow	
+inurl:wp-config.php intext:DB_PASSWORD -stackoverflow -wpbeginner	
+intitle:settings.py intext:EMAIL_HOST_PASSWORD -git -stackoverflow	
+username | password inurl:resources/application.properties -github.com -gitlab	
+filetype:xml config.xml passwordHash Jenkins	
+intext:jdbc:oracle filetype:java	
+filetype:txt $9$ JunOS	
+filetype:reg reg HKEY_CURRENT_USER intext:password	
+inurl:"standalone.xml" intext:"password>"	
+/_wpeprivate/config.json	
+inurl:"build.xml" intext:"tomcat.manager.password"	
+intitle:"index of" intext:login.csv	
+inurl:"trello.com" and intext:"username" and intext:"password"	
+inurl:"wp-license.php?file=../..//wp-config"	
+battlefield "email" site:pastebin.com	
+inurl:wp-config.bak	
+whoops! there was an error. "db_password"	
+intext:"rabbit_password" | "service_password" filetype:conf	
+intext:"login" department | admin | manager | company | host filetype:xls | xlsx -community -github	
+intext:"please change your" password |code | login file:pdf | doc | txt | docx -github	
+inurl:configuration.php and intext:"var $password="	
+inurl:/dbcp.properties + filetype:properties -github.com	
+intext:define('AUTH_KEY', ' wp-config.php filetype:txt	
+inurl:wp-config-backup.txt	
+password.xlsx ext:xlsx	
+filetype:env intext:REDIS_PASSWORD	
+site:showmyhomework.co.uk/school/homeworks/ "password"	
+intitle:"index.of" inurl:"cvs" login | passwd | password | access | pass -github -pub	
+filetype:doc inurl:"gov" intext:"default password is"	
+site:trello.com intext:mysql AND intext:password -site:developers.trello.com -site:help.trello.com	
+intext:"PuTTY log" ext:log "password" -supportforums -github	
+inurl:"/App.Config" + ext:config + "password=" -github -git	
+intitle:"Index of" intext:"Login Data"	
+inurl:"servlet/ViewFormServlet?" "pwd"	
+Codeigniter filetype:sql intext:password | pwd intext:username | uname intext: Insert into users values	
+intitle:"index.of" "places.sqlite" "key3.db" -mozilla.org	
+intitle:"index.of" "places.sqlite" "Mail" thunderbird -mozilla.org -scan	
+ext:ini Robust.ini filetype:ini "password"	
+filetype:config "" "password" "web.config" -stackoverflow -youtube.com -github	
+inurl:"databases.yml" ext:yml password -github	
+inurl:"config.xml" "password" ext:xml -stackoverflow.com -github.com	
+inurl:/host.txt + filetype:txt + "password"	
+intitle:"Index Of" intext:".vscode"	
+site:pastebin.com "rcon_password"	
+intitle:"index of /" inanchor:.kdbx	
+CakePHP inurl:database.php intext:db_password	
+intext:password inurl:"/log/production" ext:log	
+database_password filetype:yml "config/parameters.yml	
+database_password filetype:yml "config/parameters.yml"	
+MAIL_PASSWORD filetype:env	
+intitle:"Index Of" intext:sftp-config.json	
+ext:config + " password=" + "	
+password + ext:conf "Modem Type = USB Modem"	
+ext:inf SetupMgrTag AdminPassword	
+enable secret ext:cfg -git -cisco.com	
+site:trello.com password	
+inurl:"gradle.properties" intext:"proxyPassword"	
+intext:connectionString & inurl:web & ext:config	
+intitle:"Index Of" intext:.ftpconfig	
+inurl:_vti_pvt/administrators.pwd	
+inurl:"sitemanager.xml" ext:xml -git	
+intext:DB_PASSWORD || intext:"MySQL hostname" ext:txt	
+site:pastebin.com intext:"*@*.com:*"	
+resources.db.params.password ext:ini -git	
+iSpy Keylogger "Passwords Log" ext:txt	
+mysqli_connect ext:inc	
+ext:reg " [HKEY_CURRENT_USER\Software\ORL\WinVNC3]" -git	
+ End Stealer  ext:txt	
+FileZilla inurl:"recentservers.xml" -git	
+Stealer by W33DY ext:txt	
+inurl:"/zebra.conf" ext:conf -git	
+ext:fetchmailrc	
+[main] "enc_GroupPwd=" ext:txt	
+-----BEGIN RSA PRIVATE KEY----- ext:key	
+filetype:bak inurl:php "mysql_connect"	
+# -FrontPage- ext:pwd	
+END_FILE inurl:"/password.log"	
+INSERT INTO phpbb_users ext:sql	
+inurl:"-wp13.txt"	
+Index of "logins.json" "key3.db"	
+your default password is filetype:pdf	
+site:cloudshark.org/captures# password	
+intitle:"index of/" CCCam.cfg	
+inurl:github.com intitle:config intext:"/msg nickserv identify"	
+inurl:proftpdpasswd	
+inurl:"/wp-content/wpclone-temp/wpclone_backup/"	
+site:static.ow.ly/docs/ intext:@gmail.com | Password	
+site:github.com ext:csv userid | username | user -example password	
+intext:"eav" filetype:txt	
+filetype:pcf "cisco" "GroupPwd"	
+site:pastebin.com intext:@gmail.com | @yahoo.com | @hotmail.com daterange:2457388-2457491	
+intext:"END_FILE" ext:log	
+inurl:wp-config -intext:wp-config "'DB_PASSWORD'"	
+Password= inurl:web.config -intext:web.config ext:config	
+inurl:wp-content/uploads filetype:xls | filetype:xlsx password	
+intext:"GET http://" ext:txt intext:"password" inurl:log	
+intext:http | https intext:login | logon intext:password | passcode filetype:xls | filetype:xlsx	
+ext:sql intext:username intext:password	
+intext:smtp | pop3 intext:login | logon intext:password | passcode filetype:xls | filetype:xlsx	
+inurl:"ftp" intext:"user" | "username" | "userID" | "user ID" | "logon" | "login" intext:"password" | "passcode" filetype:xls | filetype:xlsx	
+ext:xls intext:NAME intext:TEL intext:EMAIL intext:PASSWORD	
+inurl:etc -intext:etc ext:passwd	
+filetype:log intext:password | pass | pw	
+intext:@pwcache "parent directory"	
+site:pastebin.com intext:Username	
+intext:DB_PASSWORD ext:env	
+ext:csv intext:"password"	
+ext:sql intext:"alter user" intext:"identified by"	
+inurl:"security/xamppdirpasswd.txt"	
+inurl:yahoo_site_admin/credentials/	
+automatic teller "operator manual" "password" filetype:pdf	
+inurl:ws_ftp.ini "[WS_FTP]" filetype:ini	
+xamppdirpasswd.txt filetype:txt	
+inurl:typo3conf/localconf.php	
+inurl:/backup intitle:index of backup intext:*sql	
+site:github.com inurl:sftp-config.json intext:/wp-content/	
+site:github.com inurl:sftp-config.json	
+filetype:password jmxremote	
+ext:sql intext:@gmail.com intext:password	
+BEGIN RSA PRIVATE KEY filetype:key -github	
+filetype:sql insite:pass && user	
+filetype:config inurl:web.config inurl:ftp	
+ext:sql intext:@hotmail.com intext :password	
+filetype:inc OR filetype:bak OR filetype:old mysql_connect OR mysql_pconnect	
+ext:xml ("proto='prpl-'" | "prpl-yahoo" | "prpl-silc" | "prpl-icq")	
+allinurl:"User_info/auth_user_file.txt"	
+filetype:xls "username | password"	
+ext:xml ("mode_passive"|"mode_default")	
+parent directory proftpdpasswd intitle:"index of" -google	
+inurl:"/dbman/default.pass"	
+inurl:"passes" OR inurl:"passwords" OR inurl:"credentials" -search -download -techsupt -git -games -gz -bypass -exe filetype:txt @yahoo.com OR @gmail OR @hotmail OR @rediff	
+intext:charset_test= email= default_persistent=	
+filetype:cfg "radius" (pass|passwd|password)	
+(username=* | username:* |) | ( ((password=* | password:*) | (passwd=* | passwd:*) | (credentials=* | credentials:*)) | ((hash=* | hash:*) | (md5:* | md5=*)) | (inurl:auth | inurl:passwd | inurl:pass) ) filetype:log	
+filetype:sql inurl:wp-content/backup-*	
+My RoboForm Data "index of"	
+inurl:"/Application Data/Filezilla/*" OR inurl:"/AppData/Filezilla/*" filetype:xml	
+filetype:php~ (pass|passwd|password|dbpass|db_pass|pwd)	
+inurl:ftp "password" filetype:xls	
+filetype:sql "PostgreSQL database dump" (pass|password|passwd|pwd)	
+filetype:sql "MySQL dump" (pass|password|passwd|pwd)	
+filetype:sql "phpmyAdmin SQL Dump" (pass|password|passwd|pwd)	
+filetype:ini "FtpInBackground" (pass|passwd|password|pwd)	
+filetype:ini "[FFFTP]" (pass|passwd|password|pwd)	
+filetype:ini "precurio" (pass|passwd|password|pwd)	
+filetype:ini "SavedPasswords" (pass|passwd|password|pwd)	
+filetype:ini "pdo_mysql" (pass|passwd|password|pwd)	
+inurl:web/frontend_dev.php -trunk	
+inurl:config/databases.yml -trac -trunk -"Google Code" -source -repository	
+inurl:-cfg intext:"enable password"	
+login: * "password= *" filetype:xls	
+ext:php intext:"$dbms""$dbhost""$dbuser""$dbpasswd""$table_prefix""phpbb_installed"	
+inurl:"calendarscript/users.txt"	
+filetype:sql "insert into" (pass|passwd|password)	
+filetype:reg reg +intext:ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂWINVNC3ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â	
+inurl:"editor/list.asp" | inurl:"database_editor.asp" | inurl:"login.asa" "are set"	
+ext:asa | ext:bak intext:uid intext:pwd -"uid..pwd" database | server | dsn	
+enable password | secret "current configuration" -intext:the	
+ext:passwd -intext:the -sample -example	
+filetype:bak createobject sa	
+inurl:ventrilo_srv.ini adminpassword	
+parent directory +proftpdpasswd	
+ext:yml database inurl:config	
+inurl:"Sites.dat"+"PASS="	
+server-dbs "intitle:index of"	
+inurl:/yabb/Members/Admin.dat	
+admin account info filetype:log	
+your password is filetype:log	
+intitle:rapidshare intext:login	
+intext:"enable password 7"	
+filetype:dat inurl:Sites.dat	
+ext:inc "pwd=" "UID="	
+[WFClient] Password= filetype:ica	
+inurl:cgi-bin inurl:calendar.cfg	
+inurl:perform.ini filetype:ini	
+intitle:"phpinfo()" +"mysql.default_password" +"Zend Scripting Language Engine"	
+filetype:dat inurl:pass.dat	
+intext:"powered by EZGuestbook"	
+inurl:server.cfg rcon password	
+!Host=*.* intext:enc_UserPassword=* ext:pcf	
+wwwboard WebAdmin inurl:passwd.txt wwwboard|webadmin	
+ext:txt inurl:unattend.txt	
+filetype:inf sysprep	
+filetype:sql ("passwd values" | "password values" | "pass values" )	
+filetype:sql ("values * MD5" | "values * password" | "values * encrypt")	
+Powered by Link Department	
+intitle:"Index of" sc_serv.conf sc_serv content	
+filetype:inc mysql_connect OR mysql_pconnect	
+Powered by DUpaypal -site:duware.com	
+ext:ini Version=4.0.0.4 password	
+ext:ini eudora.ini	
+intext:"powered by Web Wiz Journal"	
+inurl:filezilla.xml -cvs	
+filetype:log "See `ipsec --copyright"	
+inurl:"GRC.DAT" intext:"password"	
+powered by dudownload -site:duware.com	
+Powered by Duclassified -site:duware.com	
+intitle:dupics inurl:(add.asp | default.asp | view.asp | voting.asp) -site:duware.com	
+powered by ducalendar -site:duware.com	
+Powered by Dudirectory -site:duware.com	
+Powered by Duclassified -site:duware.com "DUware All Rights reserved"	
+powered by duclassmate -site:duware.com	
+intext:"enable secret 5 $"	
+liveice configuration file ext:cfg -site:sourceforge.net	
+inurl:chap-secrets -cvs	
+inurl:pap-secrets -cvs	
+filetype:ini inurl:"serv-u.ini"	
+filetype:ini inurl:flashFXP.ini	
+filetype:mdb wwforum	
+Powered By Elite Forum Version *.*	
+index of/ "ws_ftp.ini" "parent directory"	
+filetype:config config intext:appSettings "User ID"	
+filetype:ini wcx_ftp	
+LeapFTP intitle:"index.of./" sites.ini modified	
+filetype:conf oekakibbs	
+filetype:bak inurl:"htaccess|passwd|shadow|htusers"	
+http://*:*@www bob:bob	
+inurl:/db/main.mdb	
+inurl:nuke filetype:sql	
+filetype:ini ServUDaemon	
+filetype:pass pass intext:userid	
+AutoCreate=TRUE password=*	
+inurl:/wwwboard	
+filetype:pwl pwl	
+ext:pwd inurl:(service | authors | administrators | users) "# -FrontPage-"	
+sets mode: +k	
+inurl:lilo.conf filetype:conf password -tatercounter2000 -bootpwd -man	
+intitle:"Index of" passwords modified	
+Your password is * Remember this for later use	
+filetype:conf inurl:psybnc.conf "USER.PASS="	
+inurl:ccbill filetype:log	
+filetype:mdb inurl:users.mdb	
+filetype:pwd service	
+inurl:ospfd.conf intext:password -sample -test -tutorial -download	
+inurl:zebra.conf intext:password -sample -test -tutorial -download	
+filetype:sql +"IDENTIFIED BY" -cvs	
+filetype:sql password	
+filetype:cfg mrtg "target[*]" -sample -cvs -example	
+filetype:ldb admin	
+filetype:dat wand.dat	
+filetype:netrc password	
+signin filetype:url	
+filetype:ini ws_ftp pwd	
+filetype:inc dbconn	
+inurl:"slapd.conf" intext:"rootpw" -manpage -"Manual Page" -man: -sample	
+inurl:"slapd.conf" intext:"credentials" -manpage -"Manual Page" -man: -sample	
+inurl:"wvdial.conf" intext:"password"	
+filetype:conf slapd.conf	
+filetype:pem intext:private	
+filetype:dat "password.dat"	
+filetype:log inurl:"password.log"	
+filetype:url +inurl:"ftp://" +inurl:"@"	
+inurl:vtund.conf intext:pass -cvs	
+filetype:reg reg HKEY_CURRENT_USER SSHHOSTKEYS	
+filetype:reg reg +intext:"defaultusername" +intext:"defaultpassword"	
+filetype:inc intext:mysql_connect	
+filetype:properties inurl:db intext:password	
+intitle:"index of" intext:globals.inc	
+inurl:perform filetype:ini	
+eggdrop filetype:user user	
+intitle:"index of" intext:connect.inc	
+filetype:cfm "cfapplication name" password	
+allinurl: admin mdb	
+intitle:Index.of etc shadow	
+inurl:secring ext:skr | ext:pgp | ext:bak	
+intitle:index.of administrators.pwd	
+filetype:htpasswd htpasswd	
+inurl:passlist.txt	
+intitle:index.of trillian.ini	
+inurl:config.php dbuname dbpass	
+allinurl:auth_user_file.txt	
+filetype:xls username password email	
+index.of.etc	
+index.of passlist	
+intitle:index.of people.lst	
+intitle:"Index of..etc" passwd	
+intitle:index.of config.php	
+intitle:"Index of" spwd.db passwd -pam.conf	
+intitle:"Index of" ".htpasswd" "htgroup" -intitle:"dist" -apache -htpasswd.c	
+intitle:"Index of" ".htpasswd" htpasswd.bak	
+intitle:"Index of" pwd.db	
+intitle:index.of master.passwd	
+intitle:index.of passwd passwd.bak	
+intitle:index.of intext:"secring.skr"|"secring.pgp"|"secring.bak"	
+intitle:"Index of" .mysql_history	
+Reflector Dashboard inurl:/db/index.php/	
+intitle:"index of" jboss-service.xml	
+intext:ISUR_MACHINE IIS -log	
+allintext:username,password filetype:log	
+intitle:"index of" exception.log	
+intitle:"report" ("OpenVAS" | "Nikto") ext:pdf OR ext:html	
+intitle:"report" ("Fortify" | "Web Inspect") filetype:pdf	
+intitle:"Index of /" "joomla/database"	
+intitle:"report" ("qualys" | "acunetix" | "nessus" | "netsparker" | "nmap") filetype:html	
+intitle:"index of" "bundle.pem"	
+Index of "accounts.sql"	
+-----BEGIN RSA PRIVATE KEY----- inurl:id_rsa	
+intitle:"index of" ./bash_history	
+intitle:"index of" "*named.root.key"	
+intitle:"index of" /etc/openvpn/	
+intitle:"index of" "id_rsa.pub"	
+Index of /__MACOSX/System	
+intext:"Not to be distributed" ext:doc OR ext:pdf OR ext:xls OR ext:xlsx	
+Index of "/access"	
+index of /backend/prod/config	
+intext:"index of /" "*.yaml"	
+index of "siri"	
+intitle:"index of" secrets.yml	
+intitle:"index of /" "*key.pem"	
+intitle:"index of" admin.tar	
+index of .svn/text-base/index.php.svn-base	
+intext:"index of /" "config.json"	
+index of sqlite	
+intitle:index.of.?.db	
+Index of "customer.php"	
+root.log ext:log	
+index of "logs.zip"	
+index of "dbbackup"	
+intitle:"index of /" "nginx.conf"	
+intitle:"index of" "dev/config"	
+intitle:"index of" "wp-admin.zip"	
+intext:"index of" "var/log/"	
+microsoft internet information services ext:log	
+index of "backup.zip"	
+inurl:admin intitle:index of ext:sql | xls | xml | json | csv	
+phpMyAdmin MySQL-Dump "INSERT INTO" -"the"	
+inurl:"ReportServer/Pages/ReportViewer.aspx"	
+intitle:"index of" "log.bak"	
+intitle:"index of" "adminsubscribeack.txt"	
+inurl:.drone.yml intext:git config user.email	
+intitle:"index of" ".config"	
+index.of:"pcap" -site:stackoverflow.com -site:github.com	
+intitle:"index of" "security.php"	
+intitle:index of config.asp	
+intitle:"index of" "database/config"	
+intitle:"index of" "auth_config.php"	
+intitle:"index of" "aws-config.php"	
+intitle:"index of" "var/log/"	
+index of "user.sqlite"	
+filetype:sql intext: "sql dump"	
+allinurl:index.php?db=information_schema	
+index of /private/logs	
+index of /ftp/logs	
+index of "sshd_config"	
+intitle:"index of" "auth.config"	
+ext:sql intext:"-- phpMyAdmin SQL Dump	
+intitle:"index of" "properties.ini"	
+intitle:"index of" "db.log"	
+intext:"W E L C O M E to R O O T" ext:cfg OR ext:log OR ext:txt	
+intitle:"index of" "userdata.json"	
+intitle:"index of " "users.json"	
+intitle:"index of" "privkey.pem"	
+intitle:"index of" "wpadmin-secure.htaccess"	
+intitle:"index of" "dhparams.pem"	
+intitle:"index of" "token.txt"	
+intitle:"index of" "refresh_token.txt" OR "access_token.txt" OR "jsapi_ticket.txt"	
+intitle:"index of" "*root.pem"	
+intitle:"index of" "cassandra-yaml"	
+intitle:"index of" "mvn-settings.xml"	
+intitle:"index of" "jsapi_ticket.json"	
+intitle:"index of" "user data.txt"	
+intitle:"index of" "configure.in"	
+index of "wp-config.zip"	
+intitle:"Index of" "backup-audio-queue.log" OR "backup-audio.log" OR "backup-mysql.log"	
+intitle:"index of" "postgresql.conf"	
+intitle:"index of" "admin.jsp"	
+intitle:"index of" "token_info.json" OR "get_access_token.json"	
+intitle:"index of" "fullchain.pem" OR "chain.pem"	
+intitle:"Index of" "ca-key.pem" OR "ca-req.pem"	
+intitle:"index of" "users.txt"	
+intitle:"index of" "security.json"	
+intitle:"index of" "auth.asc"	
+intitle:"index of" "debian-security.log"	
+intitle:"index of" "backup.js"	
+intitle:"index of" "secrets.py"	
+intitle:"index of" "local.json"	
+intitle:"index of" "oauth-credentials.json"	
+intitle:"index of" "google-api-private-key.json"	
+intitle:"index of" "config.rb"	
+intitle:"index of" "login.docx"	
+intitle:"Index of" test.logs	
+intitle:"index of" "web.log" OR "web.logs"	
+intitle:"index of" "queue.log"	
+intitle:"index of" "cfg.go"	
+intitle:"index of" "config.js"	
+intitle:"index of" "manage.py"	
+intitle:"index of" "config.pl"	
+intitle:"index of" "Logins.txt"	
+intitle:"index of" "keys.asc"	
+intitle:"index of" "login.txt"	
+intitle:"index of" "auth.log"	
+intitle:"index of" users.bak	
+inurl:administrator/components/com_comprofiler/plugin.class.php?mosConfig_absolute_path=	
+intitle:"index of" "secret.js"	
+intitle:"index of" "accounts.json"	
+intitle:"index of" "admin.bak"	
+intitle:"index of" "settings.yaml"	
+intitle:"index of" "api.yaml"	
+intitle:"index of" "client_id.json"	
+intitle:"index of" "/config.bak"	
+intitle:"index of" "/yum.log"	
+intext:"laravel" ext:env intext:"db_password" -git	
+intitle:"index of" "/users.xls"	
+intitle:"index of" "database.json"	
+intitle:"index of" "application.yml"	
+intitle:"index of" "users.ini"	
+intitle:"index of" "/accounts.txt"	
+intitle:"index of" dataSources.local.xml	
+intitle:"index of" apis.json	
+intitle:"index of" admin.txt	
+intitle:"index of" "parameters.yml.test" OR "parameters.yml.dist"	
+intitle:"index of" "docker-cloud.yml"	
+intitle:"index of" db.json	
+intitle:"index of" license-key.txt	
+intitle:"index of" settings.xml	
+settings.ini intext:"fbconnectkey =" intext:"msverify ="	
+intitle:"index of" "keys.ini"	
+intitle:"index of" "credentials.json"	
+intitle:"index of" "token.json"	
+intitle:"index of" "dovecot.key" OR "dovecot.crt.cache" OR "dovecot.crt"	
+intitle:"index of" "credentials.ini"	
+intitle:"index of" /insecure_private_key	
+intitle:"index of" "client_secret.json" OR "client secret" OR "client_secret live.json"	
+intitle:"index of" /known_hosts	
+intitle:"index of" machine.config	
+intitle:"index of" apache.log	
+intitle:"index of" /.ssh/id_rsa OR id_rsa.pub	
+intitle:"index of" keepass.kdbx OR database.kdbx	
+intitle:"index of" "/cron.log"	
+intitle:"index of" "syslog"	
+intitle:"Index of" db.inc	
+intitle:"Index of" db_mysql.inc	
+DBPassword ext:cfg OR ext:log OR ext:txt OR ext:sql -git	
+SecretAccessKey OR "AccessKeyId" ext:txt OR ext:cfg -git	
+-----BEGIN CERTIFICATE----- ext:pem -git	
+-----BEGIN OpenVPN Static key V1----- ext:key	
+intitle:"index of" errorlog.txt	
+intext:"Current Configuration:" ext:cfg -git	
+intitle:"index of" default.rdp	
+intitle:"index of" "vpn-config.*"	
+intitle:"index of" cvsweb.conf	
+filetype:reg reg HKEY_USERS -git	
+filetype:reg reg HKEY_CLASSES_ROOT -git	
+filetype:reg reg [HKEY_CURRENT_USERSoftware] -git	
+ext:cfg tac_plus.cfg	
+inurl:cfg intext:"srb.username.1=" "srb.password.1 = "	
+intext:"dspace.cfg" "db.username = dspace"	
+intitle:"index of" "mysql.properties"	
+inurl:-cfg intext:"password cipher"	
+# Kickstart filetype:cfg	
+intext:"index of /" "token.yml"	
+intitle:"index of" "configuration.yml"	
+intitle:"index of" database.yml	
+intitle:"index of" "secrets.yml"	
+intitle:"index of" "backup.yml"	
+intitle:"index of" "settings.yml"	
+intitle:"index of" "backup.bak"	
+intitle:"index of" "access_token"	
+intitle:"index of" accounts.xml	
+intitle:"index of" "settings.py"	
+intitle:"index of" "php.ini"	
+intext:"index of /" "auth.json"	
+intitle:"index of" /"privatekey.txt" OR "private key.txt"	
+intitle:index.of "cacert.pem"	
+intitle:"index of" "env.bak"	
+intitle:"index of" "smtp.log"	
+intitle:"index of/" "db.sql"	
+intitle: index of "*db.tar.gz"	
+intitle:index.of "awsconfig.json"	
+intext:"SECRET_KEY" ext|py inurl:mysite -site:stackoverflow.com -site:github.com	
+intitle:"index.of" intext:"access.txt"	
+intitle:"index.of" intext:"api.txt"	
+intitle:index.of "keys.txt"	
+filetype:env intext:APP_NAME	
+accdb OR accde intitle:"index of" -pub -google -books	
+krb.conf OR krb.realms intitle:"index of" -public -archive -packages -pub	
+-pub -pool intitle:"index of" db.key OR server.key OR ftp.key OR exchange.key OR host.key OR mail.key	
+intitle:"index of" crontab.conf	
+intitle:"index of" ticket.conf	
+intitle:"index of" lesshsQ/ OR .lesshst/ -pool -pub	
+fetchmailrc intitle:"index of" -linux	
+inurl:"_notes/dwsync.xml"	
+intitle:"index of" "wp-security-audit-log"	
+MailChimp API error: ext:log	
+inurl:"/fmi/webd" intitle:"FileMaker WebDirect"	
+[ipn] ext:log	
+inurl:"web.config" & intext:"Data Source" & "User ID" & "Password" & "connectionString" & ext:config -git	
+Navicat MySQL Data Transfer filetype:sql	
+ext:sql intext:@gmail.com intext:e10adc3949ba59abbe56e057f20f883e	
+filetype:"xls | xlsx | doc | docx | ppt | pptx | pdf" site:gov "FOUO" | "NOFORN" | "Confidential"	
+intext:"@outlook.com" ext:log	
+intext:"@gmail.com" ext:log	
+intitle:"index of" "mail.log"	
+intitle:"index of" "ssh.yml"	
+intitle:index.of "access.conf"	
+intitle:"index of" "databases.yml"	
+db_password filetype:env -site:github.com -git	
+intitle:"index of" inurl:ftp intext:logs	
+intitle:index.of "private-key.pem"	
+intitle:index.of "key.txt"	
+intitle:index.of "credential.txt"	
+intitle:index.of "userpass.txt"	
+accounts.xlsx ext:xlsx	
+site:mypublicinbox.com intitle:email	
+site:*.freshservice.com/support/solutions	
+intitle:"Index Of" intext:sftp-config.json	
+inurl:"/.vscode/sftp.json"	
+inurl:"/.vscode/ftp-sync.json"	
+intitle:"index of" "web.config.txt"	
+site:*/wp-settings.php	
+site:*/logs/error.log	
+inurl:credentials.txt -github -git -gitlab	
+site:*/*/conf/httpd.conf	
+index.of "crossdomain.xml"	
+site:ftp.*.* index of: manifest.xml	
+intitle:"index of" "debian.conf"	
+intitle:"index of" inurl:/*sql* filetype:log	
+intitle:"index of" "/mysql.log"	
+inurl:/application/config/database.php*	
+site:*/sitemap/sitemap.xml	
+Scanned by Camscanner filetype:pdf	
+inurl: /config.txt ext:txt intext:	
+site:*/phpMyAdmin/robots.txt	
+site:*/robots.txt intext:User-agent:	
+site:*/log/access_log	
