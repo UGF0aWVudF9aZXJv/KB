@@ -1,0 +1,283 @@
+Apache ZooKeeper Unauthorized Access Vulnerability
+
+Description
+Apache ZooKeeper is an effort to develop and maintain an open-source server which enables highly reliable distributed coordination.
+
+Apache ZooKeeper is designed to be accessed by trusted clients inside trusted environments. It's not recommended to have Apache ZooKeeper service publicly accessible.
+
+Remediation
+It's recommended to restrict access to this service in production systems.
+
+References
+ZooKeeper Security - https://zookeeper.apache.org/security.html
+
+########################################################################
+
+https://security.stackexchange.com/questions/131111/is-it-possible-to-exploit-this-zookeeper-instance
+
+First of all, I'm also not familiar with Zookeeper at all but I could give you some general advice from a security perspective.
+
+The Zookeeper commands you listed sounds like administrative functions, that means that they probably should only be accessible after authentication or should, for example, be only accessible inside a private network or accessible from certain IP addresses only.
+
+If you are testing a controlled testing environment I'd suggest to contact the administrator and plan a moment to test the kill command, this will verify if it will really work in such a way. If it does I can imagine something like locating all Zookeeper servers in a cluster and kill them all, causing a shutdown of the service. Security professionals will likely call that an availability risk. Ethical hackers and script-kiddies will likely call that a defacement.
+
+Again I don't have any knowledge of Zookeeper but I could imagine the following theoretical risks.
+
+dump 
+
+shows the sessions, depending on the exact session information that is exposed, you might be able to confuse the system when trying to spoof such a session. Possibly affecting integrity.
+envi depending on the information showed you could use that to get a better view of your target and possibly widen the scope if other related systems are found by that information.
+
+kill 
+
+as noticed before, availability risk and probably the biggest risk of this list of commands.
+
+reqs 
+
+information disclosure and depending on the information a possibility of confusing processes by spoofing things.
+
+ruok 
+
+simple information disclosure, I can't imagine any risk unless there are some Zookeeper specific vulnerabilities known that will only work when it's running in a non-error state. Again error-state/non-error-state is a 50% chance that a "state specific" vulnerability will work. Knowing the actual state increases that theoretically to 100% when the versions and everything match.
+
+srst 
+
+depending on what statistics it resets exactly, you might be able to clean traces after a hacking attempt. Erasing your tracks.
+
+stat 
+
+information disclosure. Giving unnecessary insights in the system and possibly infrastructure and can possibility be used to widen the scope.
+
+My general advice would be. Prevent this system from accepting that kind of commands from anyone. Possibly adding an authentication layer like VPN and/or IP restrictions or enabling authentication features within Zookeeper (if they exist). This will make sure that information is not unnecessary disclosed and mitigates the possible availability risk caused by of the kill command.
+
+While kill itself is not a vulnerability, it is a risk. Using the CVSS scoring system, if kill actually works and depending on your exact attack background and factors I'd estimate a CVSS of the availability risk on something like 7.1 (high), (AV:N/AC:M/Au:N/C:N/I:N/A:C).
+
+Also, you might want to check out this:
+
+http://www.cvedetails.com/vulnerability-list/vendor_id-45/product_id-27453/Apache-Zookeeper.html
+https://nmap.org/nsedoc/scripts/hbase-master-info.html
+share  improve this answer  follow 
+
+########################################################################
+https://securiteam.com/securitynews/apache-zookeeper-3-5-3-remote-code-execution-vulnerability/
+https://securiteam.com/securitynews/apache-zookeeper-3-5-3-remote-code-execution-vulnerability/
+
+Apache ZooKeeper 3.5.3 Remote Code Execution Vulnerability
+Published on July 13th, 2019
+
+Summary
+
+Apache ZooKeeper is prone to a remote code-execution vulnerability.This allows a remote attacker to exploit this issue to execute arbitrary code in the context of the user running the affected application. Failed exploit attempts may result in a denial-of-service condition. 
+
+Credit:
+The information has been provided by Harrison Neal
+The original article can be found at: https://zookeeper.apache.org/security.html#CVE-2019-0201
+
+
+Details
+An issue is present in Apache ZooKeeper 1.0.0 to 3.4.13 and 3.5.0-alpha to 3.5.4-beta. ZooKeeper?s getACL() command doesn?t check any permission when retrieves the ACLs of the requested node and returns all information contained in the ACL Id field as plaintext string. DigestAuthenticationProvider overloads the Id field with the hash value that is used for user authentication. As a consequence, if Digest Authentication is in use, the unsalted hash value will be disclosed by getACL() request for unauthenticated or unprivileged users.
+
+Vulnerable Systems:
+
+Apache ZooKeeper 3.5.3
+Apache ZooKeeper 3.5.2
+Apache ZooKeeper 3.5.1
+Apache ZooKeeper 3.4.13
+Apache ZooKeeper 3.4.12
+Apache ZooKeeper 3.4.11
+Apache ZooKeeper 3.4.10
+Apache ZooKeeper 3.4.9
+Apache ZooKeeper 3.4.8
+Apache ZooKeeper 3.4.7
+Apache ZooKeeper 3.4.6
+Apache ZooKeeper 3.4.5
+Apache ZooKeeper 3.4.4
+Apache ZooKeeper 3.4.3
+Apache ZooKeeper 3.4.2
+Apache ZooKeeper 3.4.1
+Apache ZooKeeper 3.4
+Apache ZooKeeper 3.5.4-beta
+Apache ZooKeeper 3.5.3-beta
+Apache ZooKeeper 3.5.2-alpha
+Apache ZooKeeper 3.5.1-alpha
+Apache ZooKeeper 3.5.0-alpha
+CVE Information:
+
+CVE-2019-0201
+
+########################################################################
+
+pentest
+
+https://community.cloudera.com/t5/Community-Articles/Zookeeper-Super-User-Authentication-and-Authorization/ta-p/246020
+
+
+########################################################################
+
+Vulnerabilities:
+
+https://zookeeper.apache.org/security.html#CVE-2019-0201
+
+
+CVE-2019-0201: Information disclosure vulnerability in Apache ZooKeeper
+Severity: Critical
+
+Vendor: The Apache Software Foundation
+
+Versions Affected: ZooKeeper prior to 3.4.14 ZooKeeper 3.5.0-alpha through 3.5.4-beta. The unsupported ZooKeeper 1.x through 3.3.x versions may be also affected.
+
+Description: ZooKeeper’s getACL() command doesn’t check any permission when retrieves the ACLs of the requested node and returns all information contained in the ACL Id field as plaintext string. DigestAuthenticationProvider overloads the Id field with the hash value that is used for user authentication. As a consequence, if Digest Authentication is in use, the unsalted hash value will be disclosed by getACL() request for unauthenticated or unprivileged users.
+
+Mitigation: Use an authentication method other than Digest (e.g. Kerberos) or upgrade to 3.4.14 or later (3.5.5 or later if on the 3.5 branch).
+
+Credit: This issue was identified by Harrison Neal harrison@patchadvisor.com PatchAdvisor, Inc.
+
+References: https://issues.apache.org/jira/browse/ZOOKEEPER-1392
+
+########################################################################
+
+
+https://github.com/rgs1/zk_shell
+
+Installing
+From PyPI:
+
+$ pip install zk-shell
+
+Usage
+$ zk-shell localhost:2181
+(CONNECTED) /> ls
+zookeeper
+(CONNECTED) /> create foo 'bar'
+(CONNECTED) /> get foo
+bar
+(CONNECTED) /> cd foo
+(CONNECTED) /foo> create ish 'barish'
+(CONNECTED) /foo> cd ..
+(CONNECTED) /> ls foo
+ish
+(CONNECTED) /> create temp- 'temp' true true
+(CONNECTED) /> ls
+zookeeper foo temp-0000000001
+(CONNECTED) /> rmr foo
+(CONNECTED) />
+(CONNECTED) /> tree
+.
+├── zookeeper
+│   ├── config
+│   ├── quota
+
+
+Line editing and command history is supported via readline (if readline is available). There's also autocomplete for most commands and their parameters.
+
+Individual files can be copied between the local filesystem and ZooKeeper. Recursively copying from the filesystem to ZooKeeper is supported as well, but not the other way around since znodes can have content and children.
+
+(CONNECTED) /> cp file:///etc/passwd zk://localhost:2181/passwd
+(CONNECTED) /> get passwd
+(...)
+unbound:x:992:991:Unbound DNS resolver:/etc/unbound:/sbin/nologin
+haldaemon:x:68:68:HAL daemon:/:/sbin/nologin
+Copying between one ZooKeeper cluster to another is supported, too:
+
+(CONNECTED) /> cp zk://localhost:2181/passwd zk://othercluster:2183/mypasswd
+
+
+
+########################################################################
+
+https://archive.cloudera.com/cdh6/6.0.0/docs/zookeeper-3.4.5-cdh6.0.0/zookeeperStarted.html
+
+https://jaceklaskowski.gitbooks.io/apache-kafka/content/kafka-zookeeper-tips.html
+
+
+Zookeeper Tips
+The zookeeper shell shipped with Kafka works with no support for command line history because jline jar is missing (see KAFKA-2385).
+
+A solution is to use the official distribution of Apache Zookeeper (3.4.10 as of this writing) from Apache ZooKeeper Releases.
+
+Once downloaded, use ./bin/zkCli.sh to connect to Zookeeper that is used for Kafka.
+
+$ ./bin/zkCli.sh -server localhost:2181
+...
+JLine support is enabled
+
+[zk: localhost:2181(CONNECTED) 0] ls /
+[cluster, controller_epoch, controller, brokers, zookeeper, admin, isr_change_notification, consumers, log_dir_event_notification, latest_producer_id_block, config]
+
+[zk: localhost:2181(CONNECTED) 5] get /controller
+{"version":1,"brokerid":200,"timestamp":"1506417983145"}
+cZxid = 0x11b
+ctime = Tue Sep 26 11:26:23 CEST 2017
+mZxid = 0x11b
+mtime = Tue Sep 26 11:26:23 CEST 2017
+pZxid = 0x11b
+cversion = 0
+dataVersion = 0
+aclVersion = 0
+ephemeralOwner = 0x15ebd811a0e0001
+dataLength = 56
+numChildren = 0
+
+
+
+########################################################################
+
+https://stackoverflow.com/questions/16669104/how-to-get-current-zookeeper-clusters-member-server-list?answertab=oldest#tab-top
+
+
+It can also be query sending "stat" command using direct connection to port 2181.
+
+For an example of how to do that from python see: https://github.com/apache/zookeeper/blob/765cedb5c65526384011ea958e59938fc7493168/src/contrib/huebrowser/zkui/src/zkui/stats.py
+
+share  follow 
+answered Aug 17 '16 at 22:50
+
+skyde
+2,37933 gold badges2727 silver badges4747 bronze badges
+3
+What if I don't like python? – user4674453 Mar 6 '18 at 21:08
+add a comment
+
+9
+
+It would be nice if there were a built-in answer for this without resorting to JMX. If you are on one of the zookeeper nodes, you can read the zoo.cfg file to get the list of servers (dead and alive ones) and then "stat" each one individually to see if it's alive and what its status is (note the "Mode" attribute on a successful response). E.g.:
+
+$ echo stat | nc 127.0.0.1 2181
+Zookeeper version: 3.4.5--1, built on 06/10/2013 17:26 GMT
+Clients:
+ /127.0.0.1:54752[1](queued=0,recved=215524,sent=215524)
+ /127.0.0.1:59298[0](queued=0,recved=1,sent=0)
+
+Latency min/avg/max: 0/0/6
+Received: 5596
+Sent: 5596
+Connections: 2
+Outstanding: 0
+Zxid: 0x10000010f
+Mode: leader
+Node count: 54
+
+
+########################################################################
+
+CVE-2019-0201
+
+An issue is present in Apache ZooKeeper 1.0.0 to 3.4.13 and 3.5.0-alpha to 3.5.4-beta. ZooKeeper's getACL() command doesn't check any permission when retrieves the ACLs of the requested node and returns all information contained in the ACL Id field as plaintext string. DigestAuthenticationProvider overloads the Id field with the hash value that is used for user authentication. As a consequence, if Digest Authentication is in use, the unsalted hash value will be disclosed by getACL() request for unauthenticated or unprivileged users.
+
+https://hackerone.com/reports/154369
+
+dump: Lists the outstanding sessions and ephemeral nodes. This only works on the leader.
+
+$ echo dump |ncat 1.2.3.4 2181
+
+envi: Print details about serving environment.
+
+$ echo envi |ncat 1.2.3.4 2181
+
+kill: Shuts down the server. (dont try this one)
+
+reqs: List outstanding requests.
+
+$ echo reqs |ncat 1.2.3.4 2181
+
+########################################################################
