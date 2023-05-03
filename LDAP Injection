@@ -1,1 +1,9 @@
+This vulnerability has the potential to cause data leaking, unauthorised access, and other major security problems. 
+To safeguard user data and system integrity, we firmly advise that this problem be given prompt attention and resolution.
 
+LDAP injection is a type of security vulnerability that occurs when user input is not properly validated or sanitized before being used in an LDAP query. LDAP stands for Lightweight Directory Access Protocol, which is a protocol used to access and manage information in a directory service.
+
+LDAP injection attacks can be used to extract sensitive information from an LDAP directory or to modify its contents. An attacker can exploit this vulnerability by injecting malicious input into an LDAP query to bypass authentication, elevate privileges, or execute arbitrary code on the server.
+
+To prevent LDAP injection attacks, it is important to properly validate and sanitize user input before using it in an LDAP query. This can be done by using parameterized queries, input validation, and output encoding. Additionally, it is recommended to limit the permissions of the user account used to access the LDAP directory and to implement strong access controls to restrict access to sensitive information. 
+Regular security audits and vulnerability assessments can also help identify and mitigate LDAP injection vulnerabilities.
