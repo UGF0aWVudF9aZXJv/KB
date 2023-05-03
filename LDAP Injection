@@ -98,5 +98,8 @@ x' or name()='username' or 'x'='y
 
 *****************************************************************************************
 
+References:
+
+https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/LDAP%20Injection
 
 *****************************************************************************************
