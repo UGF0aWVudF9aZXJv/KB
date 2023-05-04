@@ -257,21 +257,11 @@ References:
 [2] https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API
 [3] https://www.ciphertechs.com/blog/jfrog-artifactory-advisory/
 
-
-***********************************************************
-CVE-2020-7931
-*************
-
-***********************************************************
-CVE-2020-7931
-*************
-
 ***********************************************************
 CCVE-2021-46270
 *************
 
 JFrog Artifactory prior to 7.31.10, is vulnerable to Broken Access Control where a project admin user is able to list all available repository names due to insufficient permission validation.
-
 
 ***********************************************************
 CVE-2021-45074
@@ -279,7 +269,6 @@ CVE-2021-45074
 
 JFrog Artifactory prior to7.29.3 and 6.23.38, is vulnerable to Broken Access Control, a low-privileged user is able to delete other known users'OAuthtoken, 
 which will force a reauthentication on an active session or in the following UI session.
-
 ***********************************************************
 CVE-2020-7931
 *************
@@ -297,7 +286,6 @@ The template implements many primitives (read, list, write...) that interact wit
 
 
 https://github.com/gquere/CVE-2020-7931
-
 ***********************************************************
 CVE-2021-3860
 *************
@@ -305,27 +293,33 @@ CVE-2021-3860
 JFrog Artifactory before 7.25.4 (Enterprise+ deployments only), is vulnerable to Blind SQL Injection by a low privileged authenticated user due to incomplete validation when performing an SQL query.
 
 https://jfrog.com/help/r/jfrog-release-information/cve-2021-3860-artifactory-low-privileged-blind-sql-injection
-
 ***********************************************************
 CVE-2021-23163
 **************
 
+JFrog Artifactory prior to version 7.33.6 and 6.23.38, is vulnerable to CSRF ( Cross-Site Request Forgery) for specific endpoints.
 ***********************************************************	
 CVE-2021-41834
 **************
 
+JFrog Artifactory prior to versions 7.28.0 and 6.23.38, is vulnerable to Broken Access Control, a low-privileged user can use the copy function to read and 
+copy any artifact that exists in the Artifactory deployment due to improper permissions validation.
 ***********************************************************
 CVE-2021-45721
 **************
 
+JFrog Artifactory prior to version 7.29.8 and 6.23.38is vulnerable to Reflected Cross-Site Scripting (XSS) through one of the XHR parameters in the Users REST API endpoint.
 ***********************************************************
 CVE-2021-45730
 **************
 
+JFrog Artifactory prior to 7.31.10, is vulnerable to Broken Access Control where a Project Admin is able to create, edit and delete Repository Layouts while 
+Repository Layouts configuration should only be available for Platform Administrators.
 ***********************************************************
 CVE-2021-46687
 **************
 
+JFrog Artifactory prior to version 7.31.10and 6.23.38is vulnerable to Sensitive Data Exposure through the Project Administrator REST API.
 ***********************************************************
 CVE-2022-0573
 *************
@@ -333,38 +327,10 @@ CVE-2022-0573
 JFrog Artifactory prior to 7.36.1 and 6.23.41, is vulnerable to Insecure Deserialization of untrusted data which can lead to DoS, Privilege Escalation, 
 and Remote Code Execution when a specially crafted request is sent by a low privileged authenticated user due to insufficient validation of a user-provided serialized object.
 
-
 ***********************************************************
 CVE-2022-0668
 *************
 
-
-***********************************************************
-
-
-
-***********************************************************
-
-
-***********************************************************
-
-
-***********************************************************
-
-
-***********************************************************
-
-***********************************************************
-
-
-
-***********************************************************
-
-
-***********************************************************
-
-
-***********************************************************
-
-
+JFrog Artifactory prior to versions 7.37.13 and 6.23.41. is vulnerable to Authentication Bypass, 
+which can lead to Privilege Escalation when a specially crafted request is sent by an unauthenticated user.
 ***********************************************************
