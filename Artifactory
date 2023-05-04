@@ -257,6 +257,29 @@ References:
 [2] https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API
 [3] https://www.ciphertechs.com/blog/jfrog-artifactory-advisory/
 
+
+***********************************************************
+CVE-2020-7931
+*************
+
+***********************************************************
+CVE-2020-7931
+*************
+
+***********************************************************
+CCVE-2021-46270
+*************
+
+JFrog Artifactory prior to 7.31.10, is vulnerable to Broken Access Control where a project admin user is able to list all available repository names due to insufficient permission validation.
+
+
+***********************************************************
+CVE-2021-45074
+*************
+
+JFrog Artifactory prior to7.29.3 and 6.23.38, is vulnerable to Broken Access Control, a low-privileged user is able to delete other known users'OAuthtoken, 
+which will force a reauthentication on an active session or in the following UI session.
+
 ***********************************************************
 CVE-2020-7931
 *************
@@ -283,13 +306,37 @@ JFrog Artifactory before 7.25.4 (Enterprise+ deployments only), is vulnerable to
 
 https://jfrog.com/help/r/jfrog-release-information/cve-2021-3860-artifactory-low-privileged-blind-sql-injection
 
+***********************************************************
+CVE-2021-23163
+**************
 
+***********************************************************	
+CVE-2021-41834
+**************
+
+***********************************************************
+CVE-2021-45721
+**************
+
+***********************************************************
+CVE-2021-45730
+**************
+
+***********************************************************
+CVE-2021-46687
+**************
+
+***********************************************************
+CVE-2022-0573
+*************
+
+JFrog Artifactory prior to 7.36.1 and 6.23.41, is vulnerable to Insecure Deserialization of untrusted data which can lead to DoS, Privilege Escalation, 
+and Remote Code Execution when a specially crafted request is sent by a low privileged authenticated user due to insufficient validation of a user-provided serialized object.
 
 
 ***********************************************************
-
-
-***********************************************************
+CVE-2022-0668
+*************
 
 
 ***********************************************************
